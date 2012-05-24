@@ -1,0 +1,331 @@
+\documentclass[titlepage,a4paper,11pt]{article}
+
+\usepackage[right=3cm, left=3cm, top=3cm, bottom=3cm]{geometry}
+
+\usepackage{amsfonts}
+\usepackage{amsthm}
+\usepackage[latin1]{inputenc}
+%\usepackage[T1]{fontenc}
+\usepackage{euscript}
+%\usepackage{amssymb, amsmath, enumerate, color, graphicx, subfigure}
+\usepackage{amssymb, amsmath, mathtools, enumerate, color, graphicx, mathrsfs}
+%\usepackage{mathtools}
+\usepackage{hyperref}%damit Referenzen springbar sind
+\usepackage{stmaryrd} % für Widerspruchzeichen \lightning
+\usepackage{paralist} % added by Ché
+%\usepackage{ulem} % für unterstreichen mit wellen
+\usepackage{tikz}
+
+% STYLE
+\numberwithin{equation}{section}
+\DeclareMathAlphabet{\mathpzc}{OT1}{pzc}{m}{it}
+\hypersetup{colorlinks=true}
+\bibliographystyle{alpha}
+%\parindent 0pt% keine Absätze mehr
+
+
+% THEOREMS
+\newtheorem{theo}{Theorem}[section]
+\newtheorem{kor}[theo]{Corollary}
+\newtheorem{lemma}[theo]{Lemma}
+\newtheorem{prop}[theo]{Proposition}
+
+\theoremstyle{definition} % Definitionen nichtmehr kursiv geschrieben
+\newtheorem{bsp}[theo]{Example}
+\newtheorem{bem}[theo]{Remark}
+\newtheorem{rem}[theo]{Remark}
+\newtheorem{definition}[theo]{Definition}
+
+
+%--------------------------------------------------------------------------------------------------
+%
+%     ANTON'S DEFINITIONS
+%
+%--------------------------------------------------------------------------------------------------
+\renewcommand{\labelitemi}{} % keine Punkte bei itemize
+\newcommand{\eq}{\Leftrightarrow}
+\newcommand{\Ra}{\Rightarrow}
+\newcommand{\La}{\Leftarrow}
+\newcommand{\nin}{{n\in\N}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\C}{\mathbb{C}}
+\newcommand{\K}{\mathbb{K}}
+\newcommand{\Q}{\mathbb{Q}}
+\newcommand{\ph}{\varphi}
+\newcommand{\eps}{\varepsilon}
+\newcommand{\sub}{\subseteq}
+\newcommand{\p}{\vspace{0.3cm}\\}
+%--------------------------------------------------------------------------------------------------
+
+
+%--------------------------------------------------------------------------------------------------
+%
+%     FRITZ' DEFINITIONS
+%
+%--------------------------------------------------------------------------------------------------
+
+% Things I cannot remember
+\newcommand{\paragraf}{\textsection}
+\renewcommand{\emptyset}{\varnothing}
+
+
+
+% Inner products
+\newcommand{\lk}{\langle}
+\newcommand{\rk}{\rangle}
+\newcommand{\aproduct}{\langle\cdot\,,\cdot\rangle}
+%\newcommand{\llb}{\llbracket}               % Nur mit package stmaryrd.sty
+%\newcommand{\rrb}{\rrbracket}               % Nur mit package stmaryrd.sty
+%\newcommand{\dproduct}{\llb\cdot,\cdot\rrb} % Nur mit package stmaryrd.sty
+%\newcommand{\dperp}{{\llb\perp\rrb}}        % Nur mit package stmaryrd.sty
+
+
+% Letters
+\newcommand{\calA}{\mathcal A}         \newcommand{\frakA}{\mathfrak A}
+\newcommand{\calB}{\mathcal B}         \newcommand{\frakB}{\mathfrak B}
+\newcommand{\calC}{\mathcal C}         \newcommand{\frakC}{\mathfrak C}
+\newcommand{\calD}{\mathcal D}         \newcommand{\frakD}{\mathfrak D}
+\newcommand{\calE}{\mathcal E}         \newcommand{\frakE}{\mathfrak E}
+\newcommand{\calF}{\mathcal F}         \newcommand{\frakF}{\mathfrak F}
+\newcommand{\calG}{\mathcal G}         \newcommand{\frakG}{\mathfrak G}
+\newcommand{\calH}{\mathcal H}         \newcommand{\frakH}{\mathfrak H}
+\newcommand{\calI}{\mathcal I}         \newcommand{\frakI}{\mathfrak I}
+\newcommand{\calJ}{\mathcal J}         \newcommand{\frakJ}{\mathfrak J}
+\newcommand{\calK}{\mathcal K}         \newcommand{\frakK}{\mathfrak K}
+\newcommand{\calL}{\mathcal L}         \newcommand{\frakL}{\mathfrak L}
+\newcommand{\calM}{\mathcal M}         \newcommand{\frakM}{\mathfrak M}
+\newcommand{\calN}{\mathcal N}         \newcommand{\frakN}{\mathfrak N}
+\newcommand{\calO}{\mathcal O}         \newcommand{\frakO}{\mathfrak O}
+\newcommand{\calP}{\mathcal P}         \newcommand{\frakP}{\mathfrak P}
+\newcommand{\calQ}{\mathcal Q}         \newcommand{\frakQ}{\mathfrak Q}
+\newcommand{\calR}{\mathcal R}         \newcommand{\frakR}{\mathfrak R}
+\newcommand{\calS}{\mathcal S}         \newcommand{\frakS}{\mathfrak S}
+\newcommand{\calT}{\mathcal T}         \newcommand{\frakT}{\mathfrak T}
+\newcommand{\calU}{\mathcal U}         \newcommand{\frakU}{\mathfrak U}
+\newcommand{\calV}{\mathcal V}         \newcommand{\frakV}{\mathfrak V}
+\newcommand{\calW}{\mathcal W}         \newcommand{\frakW}{\mathfrak W}
+\newcommand{\calX}{\mathcal X}         \newcommand{\frakX}{\mathfrak X}
+\newcommand{\calY}{\mathcal Y}         \newcommand{\frakY}{\mathfrak Y}
+\newcommand{\calZ}{\mathcal Z}         \newcommand{\frakZ}{\mathfrak Z}
+
+\newcommand{\scrA}{\mathscr A}  % For scr-font package "mathrsfs" is needed
+\newcommand{\scrB}{\mathscr B}
+\newcommand{\scrC}{\mathscr C}
+\newcommand{\scrD}{\mathscr D}
+\newcommand{\scrE}{\mathscr E}
+\newcommand{\scrF}{\mathscr F}
+\newcommand{\scrG}{\mathscr G}
+\newcommand{\scrH}{\mathscr H}
+\newcommand{\scrI}{\mathscr I}
+\newcommand{\scrJ}{\mathscr J}
+\newcommand{\scrK}{\mathscr K}
+\newcommand{\scrL}{\mathscr L}
+\newcommand{\scrM}{\mathscr M}
+\newcommand{\scrN}{\mathscr N}
+\newcommand{\scrO}{\mathscr O}
+\newcommand{\scrP}{\mathscr P}
+\newcommand{\scrQ}{\mathscr Q}
+\newcommand{\scrR}{\mathscr R}
+\newcommand{\scrS}{\mathscr S}
+\newcommand{\scrT}{\mathscr T}
+\newcommand{\scrU}{\mathscr U}
+\newcommand{\scrV}{\mathscr V}
+\newcommand{\scrW}{\mathscr W}
+\newcommand{\scrX}{\mathscr X}
+\newcommand{\scrY}{\mathscr Y}
+\newcommand{\scrZ}{\mathscr Z}
+
+\newcommand{\la}{\lambda}
+\newcommand{\veps}{\varepsilon}
+\newcommand{\vphi}{\varphi}
+
+
+% Matrices and vectors
+\newcommand{\mat}[4]
+{
+   \begin{pmatrix}
+      #1 & #2\\
+      #3 & #4
+   \end{pmatrix}
+}
+\newcommand{\vek}[2]
+{
+   \begin{pmatrix}
+      #1\\
+      #2
+   \end{pmatrix}
+}
+\newcommand{\smallvek}[2]{\left(\begin{smallmatrix}#1\\#2\end{smallmatrix}\right)}
+\newcommand{\smallmat}[4]{\left(\begin{smallmatrix}#1 & #2\\#3 & #4\end{smallmatrix}\right)}
+
+
+% Not in italic mode
+\renewcommand{\Im}{\operatorname{Im}}
+\renewcommand{\Re}{\operatorname{Re}}
+\DeclareMathOperator*{\linspan}{span}
+\renewcommand{\ker}{\operatorname{ker}}
+\DeclareMathOperator{\ran}{ran}
+\DeclareMathOperator{\dom}{dom}
+\DeclareMathOperator{\codim}{codim}
+
+
+% Arrows
+\newcommand{\lra}{\longrightarrow}
+\newcommand{\sra}{\rightarrow}
+\newcommand{\Lra}{\Longrightarrow}
+\newcommand{\Sra}{\Rightarrow}
+
+\newcommand{\lla}{\longleftarrow}
+\newcommand{\sla}{\leftarrow}
+\newcommand{\Lla}{\Longleftarrow}
+\newcommand{\Sla}{\Leftarrow}
+
+\newcommand{\llra}{\longleftrightarrow}
+\newcommand{\slra}{\leftrightarrow}
+\newcommand{\Llra}{\Longleftrightarrow}
+\newcommand{\Slra}{\Leftrightarrow}
+
+\newcommand{\upto}{\uparrow}
+\newcommand{\downto}{\downarrow}
+
+\newcommand{\wto}{\rightharpoonup}
+\newcommand{\Ato}{\stackrel{A}{\to}}
+\newcommand{\Awto}{\stackrel{A}{\rightharpoonup}}
+%\newcommand{\restr}{\!\!\upharpoonright\!\!}
+
+
+% Misc
+\newcommand{\ol}{\overline}
+\newcommand{\ds}{\dotplus}
+\newcommand{\wt}{\widetilde}
+\newcommand{\wh}{\widehat}
+
+% Only here
+\newcommand{\sse}{\subseteq}
+%---------------------------------------------------------------------------------------------------------
+%---------------------------------------------------------------------------------------------------------
+
+% newcommand: Alex
+\newcommand{\sequ}[2][n]{(#2_{#1})_{#1 \in \N}}				% short for sequences: Argument is the sequ element: optional index (default is n)
+\newcommand{\serie}[2][1]{\sum_{#2=#1}^{\infty}}			% serie with given index and optional starting value
+
+\newcommand{\inter}[1]{\stackrel{\circ}{#1}}				% the interior of a set
+\newcommand{\closure}[2][3]{%								% closure of a set. 1 optional agument for litte costumization 
+	{\mkern#1mu\overline{\mkern-#1mu#2}}}
+
+\newcommand{\epsi}{\varepsilon > 0}							% epsi := e > 0, just a shortcut
+\newcommand{\reci}[1]{\frac{1}{#1}}							% reciprocal
+\newcommand{\Span}[1]{\operatorname{span\left\{#1\right\}}} % span over the argument
+% END: newcommand: Alex
+
+
+% newcommand: Che
+\newcommand{\ub}{\underbrace}
+\newcommand{\id}{\operatorname{\id}}
+
+% END: newcommand: Che
+
+%--------------------------------------------------------------------------------------------------
+%
+%     AXEL'S DEFINITIONS
+%
+%--------------------------------------------------------------------------------------------------
+
+\newcommand{\norm}[1]{\Vert #1 \Vert}
+\newcommand{\dual}[1]{{#1}^{\ast}}
+\newcommand{\bidual}[1]{{#1}^{\ast \ast}}
+
+\newcommand{\sequence}[2]{\ensuremath{(#1)_{#2 \in \mathbb{N}}}}
+
+% Martins Commands
+\newcommand{\field}[1]{\mathbb{#1}}
+
+
+%\newcommand{\N}{\field{N}}
+%\newcommand{\R}{\field{R}}
+%\newcommand{\C}{\field{C}}
+%\newcommand{\H}{\field{H}}
+\newcommand{\Z}{\field{Z}}
+%\newcommand{\Q}{\field{Q}}
+%\newcommand{\K}{\field{K}}
+
+\newcommand{\KK}{\mathcal{K}}
+\newcommand{\RR}{\mathcal R}
+\newcommand{\M}{\mathcal M}
+\newcommand{\F}{\mathcal F}
+\newcommand{\B}{\mathcal B}
+
+\renewcommand{\P}{\mathcal P}
+\renewcommand{\i}{\mathrm{i}\,}
+\renewcommand{\L}{\mathscr{L}}
+
+
+%\newcommand{\eps}{\varepsilon}
+%\newcommand{\ph}{\varphi}
+
+\newcommand{\const}{\mathrm{const}}
+%\newcommand{\ran}{\mathrm{Ran}}
+\newcommand{\phys}{\mathrm{ph}}
+\newcommand{\modi}{\mathrm{mod}}
+\newcommand{\Res}{\mathrm{Res}}
+\newcommand{\SO}{\mathrm{SO}}
+\newcommand{\interior}[1]{\mbox{$\overset{\circ}{#1}$}}
+\newcommand{\e}{\mathrm{e}}
+\newcommand{\abl}{\medspace\mathrm{d}}
+\newcommand{\lap}{\enspace\laplace\enspace}
+\newcommand{\Lap}{\enspace\Laplace\enspace}
+\newcommand{\re}{\mathrm{Re}}
+\newcommand{\im}{\mathrm{Im}}
+\newcommand{\disp}{\displaystyle}
+
+\newcommand{\Ran}{\operatorname{Ran}}
+\newcommand{\supp}{\operatorname{supp}}
+\newcommand{\Ima}{\operatorname{Im}}
+\newcommand{\Rea}{\operatorname{Re}}
+\newcommand{\dime}{\operatorname{dim}}
+\newcommand{\card}{\operatorname{card}}
+\renewcommand{\div}{\operatorname{div}}
+\newcommand{\rot}{\operatorname{rot}}
+\newcommand{\spur}{\operatorname{Sp}}
+\newcommand{\dist}{\operatorname{dist}}
+
+\newcommand{\restricted}[1]{|\grave{#1}\,}
+\newcommand{\abs}[1]{\left|#1\right|}
+
+\newcommand{\set}[1]{\left\lbrace #1 \right\rbrace}
+%\renewcommand{\span}[1]{\left\langle #1 \right\rangle}
+\newcommand{\thf}{\Rightarrow}
+\renewcommand{\iff}{\Leftrightarrow}
+
+\newcommand{\contradiction}{%
+\begin{tikzpicture}[rotate=45,x=0.5ex,y=0.5ex]
+\draw[line width=.2ex] (0,2) -- (3,2) (0,1) -- (3,1) (1,3) -- (1,0) (2,3) -- (2,0);
+\end{tikzpicture}
+}
+
+
+%\newcommand{\sequence}[2]{\ensuremath{(#1)_{#2 \in \mathbb{N}}}}
+
+
+\begin{document}
+
+\include{frontpaper}
+\include{chapter1}
+\include{chapter2}
+\include{chapter3}
+\include{chapter4}
+\include{chapter5}
+
+\newpage
+\begin{thebibliography}{}
+\bibitem{Book1} H. W. Alt, \emph{Funktionalanalysis. Eine anwendungsorientierte Einführung}, 6. Aufl., Springer, 2011.
+\bibitem{Book2} J. B. Conway, \emph{A course in functional analysis}, 2. Aufl., Springer, 1990.
+\bibitem{Book3} H. Heuser, \emph{Funktionalanalysis. Theorie und Anwendung}, 4. Aufl., Teubner, 2006
+\bibitem{Book4} W. Rudin, \emph{Functional Analysis}, McGraw-Hill, 1991.
+\bibitem{Book5} D. Werner, \emph{Funktionalanalysis}, 7. Aufl., Springer, 2011.
+\bibitem{Book6} O. Christensen, \emph{Frames and bases: an introduction course}, Birkhäuser, 2008
+
+\end{thebibliography}
+\addcontentsline{toc}{section}{Literatur}
+\end{document}

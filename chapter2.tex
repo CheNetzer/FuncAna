@@ -1,0 +1,215 @@
+\section{Normed Spaces}
+
+\begin{definition} Let $E$ be a linear space over $\K$.
+	\begin{description}
+	\item{(1)} Then a map $\|\cdot\|\colon E\to[0,\infty)$ is called a \emph{norm an $E$}, and $(E,\|\cdot\|)$ a \emph{normed space}, 
+		if for all $x,y\in E$, $\lambda\in\K$
+		\begin{description}
+		\item{(i)} $\|x\|=0\eq x=0$.
+		\item{(ii)} $\|\lambda x\|=|\lambda|\cdot\|x\|.$
+		\item{(iii)} $\|x+y\|\leq\|x\|+\|y\|.$
+		\end{description}
+		$E$ is called a \emph{Banach space}, if $(E,d_{\|\cdot\|})$ is complete.
+	\item{(2)} Two norms $\|\cdot\|_1$ and $\|\cdot\|_2$ are \emph{equivalent} if there exist $\alpha,\beta >0$ such that
+		\begin{align*} \alpha \|x\|_1\leq\|x\|_2\leq\beta\|x\|_1\text{ for all }x\in E.\end{align*}
+	\end{description}
+\end{definition}
+
+\begin{bem}
+	Let $E$ be a linear space.
+	\begin{enumerate}[(1)]
+		\item If $\| \cdot \|$ is a norm on $E$, then $d_{\|\cdot\|}(x,y) = \|x-y\|$ defines a metric on $E$.
+		\item Let $\| \cdot \|_{1}$ and $\| \cdot \|_{2}$ be equivalent. Then $(E,\| \cdot \|_{1})$ is complete
+			if and only if $(E,\| \cdot \|_{2})$ is complete.
+		\item $ | \|x\| - \|y\| | \le \|x - y\|$. In particular $\| \cdot \|: E \mapsto \R$ is Lipschitz-continous.
+		\item The algebraic operations
+			\begin{itemize}
+				\item $+: E \times E \mapsto E \qquad (x,y) \mapsto x + y$
+				\item $\cdot: \K \times E \mapsto E \qquad (\lambda,y) \mapsto \lambda \cdot y$
+			\end{itemize}
+			are continous:
+			\begin{itemize}
+				\item $\|(x+y) - (x_0 + y_0)\| \le \| x-x_0 \| + \|y-y_0\|$
+				\item $\| \lambda x - \lambda_0 x_0 \| \le |\lambda| \|x - x_0\| + |\lambda - \lambda_0| \|x_0\| $
+			\end{itemize}
+		\item If $F \subset E$ is a subspace, so is $\overline F$
+	\end{enumerate}
+\end{bem}
+
+
+% This has no numeration in the skript. So the numeration does not fit starting from here.
+\begin{definition}[Quotientspace]
+	Let $E$ be a linear space, $F \subset E$. Then
+	\begin{equation*}
+		x \sim y :\eq x-y \in F \qquad (x,y \in E)
+	\end{equation*}
+	is an equivalence relation.
+	\begin{equation*}
+		[x]_{\sim} = \left\{ y \in E: y-x \in F \right\} = \left\{ y \in E : y \in x + F\right\} = x + F
+	\end{equation*}
+	So $[x]_{\sim}$ is an \emph{affine subspace}.
+
+	The \emph{quotient space} $E / F$ is defined by
+	\begin{equation*}
+		E/F := \left\{ x+F : x \in E \right\}
+	\end{equation*}
+	via
+	\begin{equation*}
+		[x]_{\sim} + [y]_{\sim} := [x+y]_{\sim} \qquad (x + F) + (y + F) := ( (x+y) + F )
+	\end{equation*}
+	and
+	\begin{equation*}
+		\lambda [x]_{\sim} := [\lambda x]_{\sim} \qquad \lambda (x + F) := ( (\lambda x) + F )
+	\end{equation*}
+	the space $E/F$ becomes a linear space.
+\end{definition}
+
+\begin{lemma}
+	Let $(E, \|\cdot\|)$ be a normed space and let $F \subset E$ be a \emph{closed} subspace. Then
+	\begin{equation*}
+		\|x+F\| := \inf\{ \|x+y\| : y \in F\}
+	\end{equation*}
+	defines a norm on $E/F$. Moreover, if $E$ is Banach space so is $E/F$.
+\end{lemma}
+
+\begin{proof}
+	\begin{enumerate}[(i)]
+		\item Let $\|x + F\| = 0$, this implies it exists $\sequ{y} \subset F$, such that 
+			\begin{equation*}
+				\| x - y_n \| \xrightarrow{n \to \infty} 0
+			\end{equation*}
+			Since $y_n \in F$, $F$ closed and $x \in F$
+			\begin{equation*}
+				x + F = F + F = F = [0]_{\sim} = 0 + F = 0
+			\end{equation*}
+		\item $\|\lambda (x + F)\| = \| (\lambda x ) + F\| = \inf\{\|\lambda x + y : y \in F\|\}$
+
+			For $\lambda = 0$ we have:
+			\begin{equation*}
+				\| \lambda (x + F) \| = 0 = |\lambda| \|x + F \|
+			\end{equation*}
+
+			And for $\lambda \neq 0$:
+			\begin{align*}
+				\|\lambda (x+F)\|
+				&= \inf\left\{ \|\lambda x + y\| : y \in F \right\}\\
+				&= |\lambda| \inf\left\{ \| x + y\| : y \in F \right\}\\
+				&= |\lambda| \|x + F\|
+			\end{align*}
+		\item Let $x,y \in E, \epsi$. Choose $z_1, z_2$ such that,
+			\begin{align*}
+				\| x + F \| &\ge \|x + z_1\| - \frac{\eps}{2} \\
+				\| y + F \| &\ge \|y + z_2\| - \frac{\eps}{2} \\
+				\intertext{which gives us}
+				\|(x+F) (y+F)\|	&= \|(x+y) + F\| \\
+								&\le \|x+z_1 + y + y_2\| \\
+								&\le \|x + F\| + \| y + F\| + \eps
+			\end{align*}
+			Let $E$ be complete and let $(x_n + F)_{n\in \N}$ be a Cauchy-sequence in $E/F$, i.e.
+			\begin{equation*}
+				\forall {\epsi} \quad \exists {N \in \N} \quad \forall {n,m \ge N} : \|(x_n - x_m) + F\| \le \eps
+			\end{equation*}
+			So for all $i \in \N$ we can find $n_i$, such that:
+			\begin{align*}
+				\|x_{n_{i+i}} - x_{n_i} + F\| 		&\le 2^{-i} \\
+				\intertext{in particulat it exists $y_i \in F$ such that}
+				\|x_{n_{i+1}} - x_{n_{i}} + y_i\|	&\le 2^{i}
+			\end{align*}
+			We may assume $n_i < n_{i+1}$. Now define
+			\begin{align*}
+				z_1 	&:= 0 \\
+				z_{i+1}	&:= y_i - z_i \qquad i \ge 1
+			\end{align*}
+			In particular we have $y_i = z_{i+1} - z_i$:
+			\begin{equation*}
+				\|(x_{n_{i+1}} + z_{i+1}) - (x_{n_i} + z_i)\| < 2^{-i}
+			\end{equation*}
+			Now we define $\eta_i := x_{n_i} + z_i$, which gives us
+			\begin{align*}
+							& \| \eta_{i+1} - \eta_i\| < 2^{-1}\\
+				\Ra \quad	& \|\eta_{m+k} - \eta_m\| \le \sum_{i=0}^{k-1} \|\eta_{m+i+1} - \eta_{m+i}\| < \sum_{i=0}^{k+1} 2^{-m-1} \le 2^{1-m}\\ 
+				\Ra \quad	& \sequ{\eta} \text{ is a Cauchy-sequence in } E\\
+				\Ra \quad	& \sequ{\eta} \text{ converges}
+			\end{align*}
+			Now we set $\lim_{n \to \infty} \eta_n =: x$.
+			We obtain:
+			\begin{align*}
+											&\|(x_n + F) - (x + F)\| \\
+											=& \|(x_n - x) + F\| \\
+				\stackrel{z_i \in F}{\le}	& \| x_{n_i} + z_i - x\|\\
+											=& \| \eta_i - x\| \to 0
+			\end{align*}
+			Which gives us a convergent subsequence, so the Cauchy-sequence is covergent itself.
+	\end{enumerate}
+\end{proof}
+
+\begin{lemma}\label{lem:banachspaceIfQuotientSpacesAre}
+	Let $E$ be a normed space, $F \subset E$ closed subspace. If $F$ and $E/F$ are Banach spaces
+	so is $E$.
+\end{lemma}
+
+\begin{proof}
+	Let $\sequ{x} \subset E$ be a Cauchy-sequence in $E$. Which gives us.
+	\begin{align*}
+		\|(x_n + F) - (x_m + F)\| = \|(x_n + x_M) + F \| \le \|x_n + x_m\|.
+	\end{align*}
+	So $(x_n + F)_n \subset E/F$ is a Cauchy-sequence in $E/F$. With $x+F := \lim_{n \to \infty} x_n + F$.
+	we obtain:
+	\begin{align*}
+		\Ra& \inf\left\{ \|x_n - x + y\| : x \in F \right\} = \|(x_n - x) + F\| \to 0\\
+		\Ra& \exists \sequ{y} \subset F : \|x_n - x + y_n\| \to 0\\
+		\Ra& \|y_n - y_m\| &= \|y_n + x_n - x - x_n + x_m - y_m - x_m + x\|\\
+		&&\|y_n + x_n - x\| + \|x_n - x_m\| + \|y_m + x_m - x\| \xrightarrow{m,n \to \infty} 0\\
+		\Ra& \sequ{y} \text{ is a Cauchy-sequence in } F.\\
+		\Ra& y := \lim_{n \to \infty} y_n \in F \text{ exists}\\
+		\Ra& \|x_n - x + y\| \le \|x_n + y_n - x \| + \|y - y_n\| \xrightarrow{n \to \infty} 0\\
+		\Ra& x_n \to (x-y), n \to \infty
+	\end{align*}
+\end{proof}
+
+\begin{kor}
+	A finite-dimensional normed space $E$ is always a Banach-space.
+\end{kor}
+
+\begin{proof}
+	Proof by induction.
+	\begin{description}
+		\item[$n=1$] Let $\dim{E} = 1$. Choose $x \in E$ such that $\|x\|=1$.
+			Then $q: \R \mapsto E, q(\lambda) := \lambda x$ is isometric. So $E \sim \R$
+			and $E$ is a Banach-space.
+		\item[$n\to n+1$] Let $\dim{E} = n+1$. Choose $x \in E \setminus \{0\}$ and set $F := \Span{x}$.
+			Because $\dim{F} = 1$ we know that $F$ is complete, so closed. Now consider:
+			\begin{equation*}
+				\dim(E / F) = \dim E - \dim F = n
+			\end{equation*}
+			By assumption we get that $E / F$ is complete and by lemma \ref{lem:banachspaceIfQuotientSpacesAre}
+			we see that $E$ is a Banach space.
+	\end{description}
+\end{proof}
+
+\begin{lemma}
+	Let $F$ be a closed subspace of a normed space $E$. Then for each $x \in E \setminus F$
+	there exists $M,M'$ such that,
+	\begin{align*}
+		\forall_{y\in F, \lambda \in \K} : |\lambda| &\le M |\ \lambda x + y \| \\
+										\|y\| &\le M'\ \|\lambda x +y\|
+	\end{align*}
+\end{lemma}
+
+\begin{proof}
+	For $x \nin F$ we have $\|x + F\| \neq 0$. We set
+	\begin{align*}
+		M	&:= \|x + F\|^{-1} \\
+		M'	&:= 1 + M \|x\|
+	\end{align*}
+	Then for $y \in F$ and $\lambda \in \K$ we have
+	\begin{align*}
+		\|\lambda\|	&\le	M |\lambda| \|x + F\| \\
+					&=		M \|\lambda x + y\| \\
+					&\le	M \|\lambda x + y\| \\
+		\intertext{For $\lambda \neq 0$ we get}
+		\|y\|		&\le	\|y + \lambda x\| + |\lambda| \|x\| \\
+					&\le	\|y + \lambda x\| + M \|\lambda x + y\| \|x\| \\
+					&=		\|y + \lambda x\| ( 1 + M \|x\|)
+	\end{align*}
+\end{proof}

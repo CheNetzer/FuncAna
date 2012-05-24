@@ -1,0 +1,99 @@
+\section{The open mapping, closed graph and Banach-Steinkraus theorem}
+
+\begin{lemma}
+	Let $E$ be a normedm $F$ a Banach space and $T \in \calL(E,F)$ surjective. Then
+	\begin{equation*}
+		K_r(0_F) \subset \closure{T(K_r(0_E))} \qquad \text{ for some } r > 0
+	\end{equation*}
+\end{lemma}
+
+%thrm 7
+\begin{theo}[Uniform Boundedness Priniple]
+	\label{5:t:ubp}
+	Let $E$ be a Banach space, $F$ a normed space and let $\calT\in\calL(E,F)$. Let $\calT$ be pointwise bounded, i.e., for each $x\in E$ there exists $M_x<\infty$ sucht that $\|Tx\|\leq M_x\quad\forall T\in\calT$. Then $\calT$ is bounded, i.e., there exists some $M<\infty$ sucht that $\|T\|<M\quad\forall T\in\calT$.
+\end{theo}
+\begin{proof}For $\nin$ let \[E_n=\{x\in E:\|Tx\|\leq m\quad\forall T\in\calT\}.\]
+By hypothesis, $E=\bigcup\limits_{n=1}^\infty E_n$.
+Let $x=\lim\limits_{j\to\infty}x_j$ with $x_j\in E_n$ for fixed $n$.
+Since $\|Tx_j\|\leq n$ for all $j$ we have \[\|Tx\|=\lim_{j\to\infty}\|Tx_j\|\leq m.\]
+Thus $x\in E_n$, and hence $E_n$ is closed.
+By remark \ref{rem:baire} on Baire's Theorem, there exists some $n_0\in\N$ with \[\mathring E_{n_0}\neq\emptyset.\]
+Hence, $K_r(x)\subseteq E_{n_0}$ for some $x\in E_n$, $r>0$.
+Let $y\in E$ with $\|y\|\leq r$.
+Then $y+x\in K_r(x)=x+K_r(0)$.
+This implies \begin{align}\begin{split}\label{eqT5.8}\|Ty\|&=\|T(y+x)-Tx\|\\&\leq\|T(y+x)\|+\|Tx\|\leq2n_0\quad\forall T\in\calT.\end{split}\end{align} Now let $y\in E$, $y\neq0$ arbitrary. Then \[\begin{array}{rrcl}&\frac r{\|y\|}\|Ty\|&=&\left\|T\left(\frac{ry}{\|y\|}\right)\right\|\overset{\ref{eqT5.8}}\leq 2n_0\\\Ra&\|Ty\|&\leq&\frac{2n_0}r\|y\|\\\Ra&\|T\|&\leq&\frac{2n_0}r.\end{array}\]
+\end{proof}
+\begin{bsp}In general, Theorem \ref{5:t:ubp} does not hold, if $E$ is \emph{not} a Banach space. Example: \begin{align*}E&=\{x=(x_n)_\nin\in\ell_1:x_n=0\text{ for almost all }\nin\}\\F&=\K\\f_n(x)&=nx_n\quad\forall x\in E,\nin\\\calT&=\{f_n:\nin\}.\end{align*}
+We see that $\calT$ is pointwise bounded, since $x_n=0$ from some $n\geq N$ on.
+
+BUT $\|f_n\|=n,\,\nin$.
+\end{bsp}
+\begin{kor}\label{5:c:10}
+Let $E$ be a Banach Space, $F$ a normed space and $T_n\in\calL(E,F)$.
+Suppose for every $x\in E$, $(T_nx)_\nin$ is convergent in $E$.
+Then define $T\colon E\to F$ by \[Tx:=\lim_{n\to\infty}T_nx.\]
+Then $T\in\calL(E,F)$, $(\|T_n\|)_\nin$ is bounded, and \[\|T\|\leq\liminf_{n\to\infty}\|T_n\|.\]
+\end{kor}
+\begin{proof} By definition, $T$ obviously is linear. $(\|T_nx\|)_\nin$ is bounded. By Theorem \ref{5:t:ubp}, $\|T_n\|\leq M$ for all $\nin$.
+Hence, for all $x\in E$ \[\|Tx\|=\lim_{n\to\infty}\|T_nx\|\leq M\|x\|.\]
+This shows that $T\in\calL(E,F)$.
+Let $(\|T_{n_k}\|)_{k\in\N}$ be a convergent subsequence of $(\|T_n\|)_\nin$.
+Then \[\|Tx\|=\lim_{k\to\infty}\|T_{n_k}\|\leq\|x\|\lim_{k\to\infty}\|T_{n_k}.\]
+Thus \[\|T\|\leq\lim_{k\to\infty}\|T_{n_k}\|,\] and hence \[\|T\|\leq\liminf_{n\to\infty}\|T_n\|.\]
+\end{proof}
+\begin{lemma}\label{5:l:11}
+Let $E$ be a normed space and $F$ be a Banach space.
+Then let $E_0$ be a dense linear subspace of $E$, and $T_0\in\calL(E_0,F)$.
+There exists a unique $T\in\calL(E,F)$ with \[T\vert_{E_0}=T_0\quad\text{and}\quad\|T\|=\|T_0\|.\]
+\end{lemma}
+\begin{proof}Follows with Lemma 3.6\marginpar{Reference!}.
+\end{proof}
+\begin{theo}[Banach-Steinhaus Theorem]\label{5:t:bst}\hfill
+
+\begin{enumerate}[(i)]\item Let $E$ be a Banach space and $F$ a normed space. Further, let $T_n\in\calL(E,F)$, $\nin$.
+If $(T_n)_\nin$ is pointwise convergent to some $T\colon E\to F$ which is linear, then \[\sup_\nin\|T_n\|<\infty.\]
+
+\item Let $E$ be a normed space and $F$ a Banach space. Further, let $T\in\calL(E,F)$, $\nin$. If
+\begin{enumerate}[(a)]\item $\sup\limits_\nin\|T_n\|<\infty$
+\item there exists a dense linear subspace $E_0$ of $E$ such that $(T_nx)_\nin$ is convergent in $F$ for each $x\in E_0$,
+\end{enumerate}
+then there existst some $T\in\calL(E,F)$ with \[Tx=\lim_{n\to\infty}T_nx\quad\text{for all }x\in E.\]
+\end{enumerate}
+\end{theo}
+\begin{proof}\hfill
+
+\begin{enumerate}[(i)]\item This is Cor. \ref{5:c:10}
+\item For each $y\in E_0$ set \[T_0y:=\lim_{n\to\infty}T_ny.\quad\text{(exists by (b))}\]
+$T_0$ is linear and \[\|T_0y\|=\lim_{n\to\infty}\|T_ny\|\leq\ub{\sup_\nin\|T_n\|\|y\|}_{<\infty\text{ by (a)}}.\]
+Hence $T_0\in\calL(E,F)$. By Lemma \ref{5:l:11}, there exists some $T\in\calL(E,F)$ with $T\vert_{E_0}=T_0$.
+Let $x\in E$, and $\veps>0$. Then let $y\in E_0$ with \[\|x-y\|\leq\veps\text{ and }N\in\N\text{ with }\|T_ny-T_0y\|\leq\veps\ \forall n\geq N.\quad\text{(b)}\]
+Then for all $n\geq N$, \begin{align*}\|T_nx-Tx\|&\leq\ub{\|T_nx-T_ny\|}_{\leq\|T_n\|\cdot\|x-y\|}+\ub{\|T_ny-T_0y\|}_{\leq\veps}+\ub{\|T_0y-Tx\|}_{\leq\|T\|\cdot\|y-x\|}\\&\leq\|T_n\|\|x-y\|+\veps+\|T\|\|y-x\|\\&\leq\veps(\|T_n\|+1+\|T\|)\\&\leq\veps\biggl(\ub{\sup_\nin\|T_n\|}_{<\infty\text{ by (a)}}+1+\|T\|\biggr).\end{align*}
+This implies $T_nx\to Tx$ as $n\to\infty$.
+\end{enumerate}
+\end{proof}
+\begin{theo}\label{5:t:13}
+Let $E$ be a normed space and $M\subseteq E$.
+Then the following conditions are equivalent:
+\begin{enumerate}[(i)]\item $M$ ist bounded.
+\item $f(M)\subseteq\K$ is bounded for all $f\in E^*$.
+\end{enumerate}
+\end{theo}
+\begin{bem}[Geometric interpretation of \ref{5:t:13}]
+Suppose that for every closed hyperplane $H$ in $E$ (kernel of $f$) some $c$ exists with $M$ between $H+c$ and $H-c$.
+Then $M$ is already contained in a ball. \hfill ((ii)$\Ra$(i))
+\end{bem}
+\begin{proof}\hfill
+
+\begin{itemize}\item[(i)$\Ra$(ii)] This follows from \[\|x\|<c\Ra\|f(x)\|\leq c\|f\|\quad\forall x\in M.\]
+\item[(ii)$\Ra$(i)] Consider the set \[\hat M=\{\hat x\colon f\mapsto f(x):x\in M\}\subseteq\calL(E^*,\K)=E^{**}.\]
+Since $\hat M(f)=f(M)$, by (ii) $M$ is pointwise bounded. By Theorem \ref{5:t:ubp}, $\hat M$ is bounded. Since $\hat{}$ is isometric, also $M$ is bounded.
+\end{itemize}
+\end{proof}
+\begin{kor} Let $E,F$ be normed spaces and $T\colon E\to F$ be linear. Then \[T\in\calL(E,F)\eq f\circ T\in E^*\text{ for all }f\in F^*.\]
+\end{kor}
+\begin{proof}\hfill
+
+\begin{align*}
+	{rcl}T\text{ is bounded}&\eq&T(K_1(0))\text{ is bounded in }F\\&\overset{\ref{5:t:13}}\eq&f(T(K_1(0)))\text{ is bounded for all }f\in F^*\\&\eq&f\circ T\in E^*\text{ for all }f\in F^*.
+\end{align*}
+\end{proof}

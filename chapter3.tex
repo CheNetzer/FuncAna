@@ -1,0 +1,311 @@
+\section{Linear Operators, Dual Space}
+
+\begin{lemma}
+	Let $E,F$ be normed spaces over $\K$ and $T: E \rightarrow F$ be a linear operator (a linear map). Then the following are 			equivalent: \label{bounded_continous}
+
+	\begin{enumerate}[(i)]
+		\item $T$ is continuous on $E$.\label{cond:continous}
+		\item $T$ is continuous in one point $x_0 \in E$. \label{contpoint}
+		\item $T$ is bounded i.e. $\norm{Tx} \le c\norm{x}$ for all $x \in E$ and some $c \in \R_{\ge 0}$. \label{cond:bounded}
+	\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+	\eqref{cond:continous} $\Ra$ \eqref{contpoint}: This is trivial.
+	
+	\eqref{contpoint} $\Ra$ \eqref{cond:bounded}: Let $T$ be continuous in $x_0$. Then there exists $\delta \in \R_{> 0}$ such that $\norm{x - x_0} \le \delta \Ra \norm{Tx - Tx_0} \le 1$ for all $x \in E$. Let $y = \delta^{-1}\cdot(x_0 - x)$ then $\norm{\dfrac{\delta \cdot y}{\norm{y}}} \le \delta$. We obtain $\norm{Tx_0 - Tx} = \norm{T(\dfrac{\delta \cdot y}{\norm{y}})} \le 1. \iff \norm{Ty} \le \dfrac{\norm{y}}{\delta}$.
+	
+	\eqref{contpoint} $\Ra$ \eqref{cond:continous}:  Let $\varepsilon > 0$ then $\norm{Tx} \le c \norm{x} < \varepsilon \La \norm{x} \le \dfrac{\varepsilon}{c}$. This implies $T(K_{\dfrac{\varepsilon}{c}}(x)) \subseteq K_{\dfrac{\varepsilon}{c}}(Tx)$.
+
+\end{proof}
+
+\begin{definition}
+Let $E,F$ be normed spaces over $\K$. Then $\L(E,F) = {T:E \rightarrow F \ | T\,is \,linear\,and\,bounded}$. If $E = F$ we write $\L(E)$. We define the operator norm on $\L(E,f)$ by $\norm{T}=sup_{\norm{x}_{E} \le 1} \norm{Tx}_{F}$.
+\end{definition}
+
+\begin{lemma}
+Let $E,F,G$ be normed spaces over $\K$:
+\begin{enumerate}
+	\item[(i)] $(\L(E,F), \norm{\cdot})$ is a normed linear space. Also for $T \in \L(E,F)$ we have $\norm{T}= \sup_{\norm{x}=1} \norm{Tx} = \sup_{x \neq 0} \dfrac{\norm{Tx}}{\norm{x}}$.
+	\item[(ii)] If $T \in \L(E,F)$ and $S \in \L(F,G)$ then $T \circ S \in \L(E,G)$ and $\norm{S \circ T} \le \norm{S} \norm{T}$.
+\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+Excercise.
+\end{proof}
+
+\begin{definition}
+Let $E,F$ be normed spaces over $\K$. Then the space of continuous linear functions $\L(E,\K)$  is the dual space $E^{*}$ of $E$.
+\end{definition}
+
+\begin{theo}
+Let $E$ be a normed space over $\K$ and let $F$ be a Banach space over $\K$. Then $\L(E,F)$ is a Banach space. In particular $E^{*}$ is a Banach space.
+\end{theo}
+
+\begin{proof}
+Let $\sequence{T_n}{n}$ be a Cauchy sequence in $\L(E,F)$. Then since $\norm{T_n x - T_m x} \le \norm{T_n - T_m}\cdot \norm{x}$, also $\sequence{T_n x}{n}$ is a Cauchy sequence in $F$ for each $x \in E$. Since $F$ is complete we can find $Tx = \lim_{n \rightarrow \infty} T_n x$. This defines $T:E \rightarrow F$.
+\begin{enumerate}
+	\item[1)]Let $x,y \in E$ $\lambda, \mu \in \K$ then $T(\lambda x + \mu y) = \lim_{n \rightarrow \infty} T_n(\lambda x + \mu y) =  \lambda \cdot \lim_{n \rightarrow \infty} T_n x + \mu \cdot \lim_{n \rightarrow \infty} T_n y = \lambda \cdot T x + \mu \cdot T y $
+	\item[2)] Let $\varepsilon \in \R_{>0}$ $N_{\varepsilon} \in \N$ such that $\norm{T_n - T_m} < \varepsilon \, \forall m,n \ge N_{\varepsilon}$. This implies $\norm{T_n x - T_m x} \le \norm{T_n - T_m} \norm{x} < \varepsilon \norm{x} \, \forall m,n \ge N_{\varepsilon}$ and $\forall x \in E$. Letting $n \rightarrow \infty$ we obtain $\norm{Tx - T_{m} x} \le \varepsilon \cdot \norm{x} \forall m \ge N_{\varepsilon}$ hence $\norm{Tx - T_{N_{\varepsilon} x}} \le \varepsilon \cdot \norm{x}$. This implies $\norm{Tx} \le \varepsilon \cdot \norm{x} + \norm{T_{ N_{\varepsilon}} x} \le (\varepsilon + \norm{T_{N_{\varepsilon}}}) \cdot \norm{x}$ $\forall x \in E$. Hence $T \in \L(E,F)$
+	\item[3)] $\norm{Tx - T_{N_{\varepsilon} x}} \le \varepsilon \cdot \norm{x} \forall m \ge N_{\varepsilon}$ $\norm{T - T_{N_{\varepsilon}}} \le \varepsilon$. Hence  $\lim_{m \rightarrow \infty} T_m = T$.
+\end{enumerate}
+\end{proof}
+
+\begin{theo}
+Let $E$ be a normed space over $\K$ and let $F$ be a Banach space over $\K$, $L \subseteq E$ a linear subspace, $F$ be a Banach space, and $T: L \rightarrow F$ a continuous linear operator. Then theere exists $S: \bar{L} \rightarrow F$ with $S_{| \, L} = T$, $S$ is continuous, linear and  $\norm{S} = \norm{T} $, $S \in \L(\bar{L}, F)$.
+\end{theo}
+
+\begin{proof}
+$ \ $
+\begin{enumerate}
+	\item[1)]Let $x \in \bar{L}$ and  $\sequence{x_n}{n} \subseteq L$, $x = \lim_{m \rightarrow \infty} x_n $ we observe: $\norm{Tx_n - Tx_m} \le \norm{T} \norm{x_n - x_m}$. This implies that $\sequence{Tx_n}{n}$ is a Cauchy sequence. Since $F$ is a Banach space, hence $\sequence{Tx_n}{n}$ converges. Now chosse $\sequence{y_n}{n} \subseteq L$ with $x= \lim_{n \rightarrow \infty} y_n$ then $\norm{Tx_n - Ty_n} \le \norm{T} \norm{x_n - y_n}$, which implies $\lim_{n \rightarrow \infty} Tx_n = \lim_{n \rightarrow \infty} Ty_n$. This means tahat the map $S$ defined by $Sx = \lim_{n \rightarrow \infty} Ty_n$ is well defined.
+	\item[2)] Let $x,y \in \bar{L}$ be arbitrary, choose $\sequence{x_n}{n}, \sequence{y_n}{n} \subseteq L$ with $\lim_{n \rightarrow \infty} x_n = x$, $\lim_{n \rightarrow \infty} y_n = y$ and  $\lambda , \mu \in \K$. Therefore $S(\lambda x + \mu y) = \lim_{n \rightarrow \infty} T(\lambda x_n + \mu y_n) = \lambda \lim_{n \rightarrow \infty} Tx_n + \mu \lim_{n \rightarrow \infty} Ty_n = \lambda Sx + \mu Sy$ , which implies that $S$ is linear.
+	\item[3)] Let $x \in \bar{L}$, $\lim_{n \rightarrow \infty} x_n = x$, $x_n \in L$, $\norm{x} \le 1$. Then $\norm{Sx} = norm{\lim_{n \rightarrow \infty} Tx_n} = \lim_{n \rightarrow \infty} \norm{Tx_n}=\norm{Tx} \le \norm{T}$. Therefore $\norm{S} \le \norm{T}$. Since $L \subseteq \bar{L}$ $S_{| \, L} = T$ we have $\norm{T} \le \norm{S}$ hence $\norm{S} = \norm{T}$.
+	\item[4)] From 3) it follows that $\norm{Sx} \le \norm{S} \norm{x} = \norm{T} \norm{x} < \infty$. This implies that $S$ is contiuous.
+	\item[5)] Now choose $R \in \L(\bar(L), F)$ with $R_{| \, L} = T$. Then all $x \in \bar{L}$ and sequences $\sequence{x_n}{n}$ with $\lambda \lim_{n \rightarrow \infty} x_n = x$ satisfy $Rx = \lim_{n \rightarrow \infty} Rx_n = \lim_{n \rightarrow \infty} Tx_n = S_x$, which shows the uniqueneness of $S$.
+\end{enumerate}
+\end{proof}
+
+\begin{lemma} \label{lift_from_dense}
+    Let $E$ be a normed space over $\mathbb{K}$, $L \in E$ a subspace, $F$ a   	
+    Banach space and $T: L \to F$ a continous linear operator. Then there exists a unique $S \in \scrL(\overline{L},F)$    
+    with 
+    $S_{\vert_L}=T$. There holds
+		\begin{align*}
+			\Vert S \Vert = \Vert T \Vert
+		\end{align*}
+\end{lemma}
+
+\begin{proof}
+	Let $x \in \bar{L}$ and let $(x_n) \subseteq L$ be a sequence which converges to x. We observe
+	\[
+      \Vert Tx_n - Tx_m \Vert \leq \Vert T \Vert \Vert x_n - x_m \Vert
+     \] 
+	This implies that $(Tx_n)$ is a Cauchy sequence in $F$. $F$ is complete - hence $(Tx_n)$ converges.
+	For any other sequence $(y_n)$ which also converges to $x$ we have
+	\[
+		\Vert Tx_n - Ty_n \Vert \leq \Vert T \Vert \Vert x_n - y_n \Vert
+	\]
+	Thus $\lim Tx_n = \lim Ty_n$. We can now define
+    \[
+		Sx = \lim Tx_n
+	\]
+	and have no concernes about well-defining issues. 
+
+	It follows immediately $S_{\vert_L}=T$, because for $x \in L$ we can just choose the constant sequence $x_n:=x , \forall n$ as 	''defining sequence''. The linearity of $S$ is also easily proven:
+	\[
+		S(x+y) = \lim T(x_n+y_n) = \lim Tx_n + Ty_n =Sx +Sy
+	\]
+	and analogously $S(\lambda x) = \lambda Sx$.
+
+	Moreover, $\Vert S \Vert \geq \Vert S_{\vert_L} \Vert = \Vert T \Vert$. To prove the reverse inequality, let $x \neq 0 \in 			\bar{L}$ and $(x_n)$ be a sequence in $L$ converging to $x$. For large $n$, $x_n \neq 0$ and therefore we can consider
+	\[
+		\frac{\Vert Sx \Vert}{\Vert x \Vert} = \lim \frac{\Vert\ T x_n\Vert }{\Vert x_n \Vert } 
+												\leq \lim \Vert T \Vert = \Vert T \Vert
+	\]
+	This proves $\Vert S \Vert = \Vert T \Vert$, thus $S$ is bounded.
+
+	It only remains to prove the uniqueness of $S$. Consider another continous linear operator $R$ with 
+	$R_{\vert_L}=T$, and $x \in \bar{L}$. 
+	For any sequence converging to $x$ there follows
+	\[
+		Rx= \lim Rx_n = \lim Tx_n =Sx
+	\]
+	We used the continuity of $R$.
+\end{proof}
+
+We draw a corollary. It follows from the uniqueness part of the lemma.
+
+\begin{kor} \label{cor_lift_from_dense}
+	If two bounded linear operators $S,T \in \scrL(E,F)$, where $F$ is a Banach space, 
+	coincides in a dense subspace of $E$, then they coincide in $E$
+\end{kor}
+
+\begin{lemma} \label{inverse}
+	Let $E,F$ be normed spaces over $\mathbb{K}$ and $T: E \to F$ linear. Then the following are equivalent
+	\begin{enumerate}[(i)]
+		 \item There exists a linear, cond:continousinous, inverse operator \label{invertible}
+ 			\[
+  				T^{-1}: T(E) \to E
+ 			\]
+ 		\item  There exists $c >0$ so that $c \Vert x \Vert \leq \Vert Tx\Vert$ \label{inv_bound}
+	\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+ 	 \eqref{invertible} $\Ra$ \eqref{inv_bound} Assume $T^{-1}$ exists. The cond:continousinuity of it gives us the 
+ 	 existence of a $\gamma>0$ such that:
+ 	\[
+ 		\Vert T^{-1}y \Vert \leq \gamma \Vert y \Vert
+ 	\]
+	for an arbitrary $x$ we put $y=Tx$ to obtain
+	\[
+		\Vert x \Vert \leq \gamma \Vert Tx\Vert
+	\]
+	Putting $c := \frac{1}{\gamma}$ we have proven \eqref{inv_bound}.
+	
+	\eqref{inv_bound} $\Ra$ \eqref{invertible} We observe that \ref{invertible} secures the injectivity of $T$ (if $ x \in \ker(T)$, 		then $\Vert x \Vert =0$). Thus $T^{-1}: \ran E \to E$ exists.
+
+	Now letting $y=Tx$ in \eqref{invertible} assures the existence of a $c>0$ with
+	\[
+		c\Vert T^{-1}y \Vert \leq \Vert y \Vert \quad \forall y \in T(E)
+	\]
+	Thus the inverse operator is cond:continousinous.
+\end{proof}
+
+\begin{definition}[Graph of $T$] \label{graph}
+	Let $E,F$ be normed spaces, $L \subseteq E$ a subspace and $T: L \to F$ a linear operator. 
+	\begin{enumerate}[(i)]
+	\item
+		\[
+			G_T = \{(x,Tx) , x\in L \} \subseteq L \times F
+		\]
+		is called the \emph{graph of $T$}.
+	
+	\item If $G_T$ is closed, $T$ is \emph{closed}.
+	\end{enumerate}
+\end{definition}
+
+\begin{lemma}
+	Let $E,F,T$ and $L$ be as above. Then the following are equivalent
+	\begin{enumerate}[(i)]
+		\item{$T$ is closed \label{closed_graph}}
+		\item{ If $(x_n) \subseteq(L)$ converges to $x \in E$ and $(Tx_n)$ to $y \in F$, then $x \in L, y=Tx$ \label{seqcrit}}
+	\end{enumerate}
+\end{lemma}
+
+\begin{proof}
+	Since
+	\[
+		\Vert (x_n, Tx_n) - (x,y) \Vert = \max(\Vert x_n - x \Vert, \Vert Tx_n -y \Vert )
+	\]
+	we have that if $x_n \to x, Tx_n \to y$, then
+	\[
+		\lim_{n \to \infty} (x_n, Tx_n) = (x,y)
+	\]
+	Because of $G_T$ being closed $(x,y) \in G_T$. Thus $x \in L, y=Tx$.
+
+	Now consider a convergent sequence $(x_n, y_n) \to (x,y)$ in $G_T$. Because of the convergence of $y_n =Tx_n$ and  	
+	\eqref{seqcrit}, there follows $x \in L, y=Tx$, thus $(x,y) \in G_T$.
+\end{proof}
+
+\begin{rem}
+	If $L$ is closed, and $T$ is cond:continousinous, then $T$ is closed. In particular, all $T \in \scrL(E,F)$ are closed.
+\end{rem}
+\begin{proof}
+	If $(x_n,Tx_n) \to (x,y)$, then ($T$ closed) $x \in L$. Continuity of $T$ now implies $Tx_n \to Tx$, thus $(x,y) \in G_T$.
+\end{proof}
+
+\begin{theo}
+ 	Let $1 \leq p < \infty$. Define $q$ so that $\frac{1}{p} + \frac{1}{q}=1$ , i.e.
+ 	\[
+ 	q= \begin{cases} \frac{p}{p-1} &: 1<p<\infty \\ \infty &: p=1 \end{cases}
+ 	\]
+ 	Moreover define for $y \in l_q$.
+	\[
+		f_y : l_p \to \mathbb{K}, x= (x_n) \mapsto \sum_{n=1}^{\infty} x_ny_n
+	\]
+	Then $f_y \in l_p^{\ast}$ and $y \mapsto f_y$ is an isomorphism.
+	In particular $l_q \sim l_p^{\ast}$.
+\end{theo}
+
+\begin{proof}
+	First of all, $f_y$ is welldefined (i.e. the series converges) because of the H"older-inequality:
+    \[
+        \sum_{n=1}^{\infty}\vert x_n y_n \vert \leq \Vert x \Vert_p \Vert y \Vert_q
+    \]
+    That $f_y$ is linear is evident. Furthermore, by the above, we have
+	\[
+		\Vert f_y(x) \Vert  \leq \Vert x \Vert_p \Vert y \Vert_q
+	\]
+	Thus $f_y$ bounded. We conclude that $f_y \in l_p^{\ast}$.
+
+	We now claim that $\Vert f_y \Vert = \Vert y \Vert_q$. We already proved $\Vert f_y \Vert \leq \Vert y \Vert_q$. 
+	To prove the inverse inequality, we consider the cases $p=1, p>1$ separately.
+
+	\underline{$p=1$: } Let $\epsilon>0$. There exists an $n \in \mathbb{N}$ such that
+	\[
+		\vert y_n \vert \geq \Vert y \Vert_q -\epsilon
+	\]
+	Set $x=e_n \in l_1$. We obtain $f_y(x)=y_n$. Because of $\Vert x \Vert =1$ 
+	there follows $\Vert f_y \Vert\geq \Vert y\Vert_{\infty} - \epsilon$. 
+	Because of $\epsilon$ arbitrary, we conclude $\Vert f_y \Vert \geq \Vert y \Vert_q$
+
+	\underline{$p>1$} Define $x$ by
+	\[
+	x_n = \begin{cases} 0 & \quad y_n=0 \\
+                  \frac{\vert y_n \vert^q}{y_n} &\text{else}
+			\end{cases}
+	\]
+	Then $\sum_{n=1}^{\infty}\vert x_n \vert^p = \sum_{n=1}^{\infty} \vert y_n \vert^{p(q-1)}=\sum_{n=1}^{\infty} \vert y_n 			\vert^{q}<\infty$, thus $x \in l_p$.
+	
+	We now compute $f_y(x)$
+	\[
+		f_y(x)=\sum_{n=1}^{\infty}x_ny_n= \sum_{n=1}^{\infty}\vert y_n \vert^q = \Vert y \Vert_q^q
+	\]
+	Thus $\frac{\vert f_y(x) \vert}{\Vert x \Vert} =\Vert y \Vert ^{\frac{q(p-1)}{p}}=\Vert y \Vert_q$, and we conclude $\Vert f_y 	\Vert \geq \Vert y \Vert_q$.
+
+	This proves the injectivity of $y \mapsto f_y$. Now the surjectivity. Let $x \in l_p^{\ast}$ and put
+	\[
+		y_n:=f(e_n)
+	\]
+	
+	To prove $y \in l_q$, we again treat the two cases $p=1$, $p>1$ separately.
+	
+	\underline{$p=1$} We have for all $n$
+ 	\[
+		\vert y_n \vert = \vert f(e_n) \vert \leq \Vert f \Vert \Vert e_n \Vert = \Vert f\Vert
+	\]
+	Thus $\Vert y \Vert_{\infty} \leq \Vert f \Vert$, $y \in l_{\infty}$.
+	
+	\underline{$p>1$} For all $m \in \mathbb{N}$ there holds
+	\[
+		\sum_{n=1}^m \vert y_n \vert^q = \sum_{\substack{ n=1 \\ y_n \neq 0}}^m\frac{\vert y_n \vert^q}{y_n}f(e_n) = 
+		f\Big(\sum_{\substack{ n=1 \\ y_n \neq 0}}^m\frac{\vert y_n \vert^q}{y_n}e_n \Big) 
+		\leq \Vert f \Vert  \Vert\sum_{\substack{ n=1\\ y_n \neq 0}}^m\frac{\vert y_n \vert^q}{y_n}e_n\Vert_p
+	\]
+	We have 
+	\[
+		\Vert \sum_{\substack{ n=1 \\ y_n \neq 0}}^m\frac{\vert y_n \vert^q}{y_n}e_n \Vert_p = 
+		\Big( \sum_{\substack{ n=1 \\ y_n \neq 0}}\vert y_n \vert^{p(q-1)} \Big)^{\frac{1}{p}}
+	\]
+	And thus
+	\[
+		\sum_{n=1}^m \vert y_n \vert^q \leq \Vert f \Vert \Big(\sum_{n=1}^m \vert y_n \vert^q \Big)^{ \frac{1}{p}}
+	\]
+	which implies
+	\[
+		\Big(  \sum_{n=1}^m \vert y_n \vert^q \Big)^{\frac{1}{q}} \leq \Vert f \Vert
+	\]
+	
+	Letting $m \to \infty$, we get $\Vert y \Vert_q <\infty \Rightarrow y \in l_q$.
+	
+	Finally, $f=f_y$ because of for $x= \sum_{n=1}^mx_n e_n$, there holds
+	\[
+		f(x) = \sum_{n=1}^m x_n f(e_n) = \sum_{n=1}^m x_ny_n =f_y(x)
+	\]
+	Thus $f$ coincides with $f_n$ on the dense linear subspace $\text{span} (e_n)_{n\in \mathbb{N}}$, 
+	hence (Lemma \eqref{lift_from_dense}, $\mathbb{K}$ is a Banach space) they are equal.
+\end{proof}
+
+\begin{lemma} \label{dual lemma}
+	Let $E,F$ be normed spaces, and let $T \in \scrL(E,F)$- Then the operator $\dual{T}: \dual{F} \to \dual{E}$ defined by
+		\[
+		\dual{T}(\phi)(x)= \phi \circ T(x)
+		\]
+	satisfies $\dual{T} \in \scrL(\dual{F},\dual{E})$ and $\norm{\dual{T}}=\norm{T}$.
+\end{lemma}
+
+\begin{proof}
+	$\dual{T}$ is obviously linear. Further
+	\[
+		\norm{(\dual{T}\phi)x} = \norm{\phi Tx \norm} \leq \norm{phi}\norm{T}\norm{x}
+	\]
+	This proves that $\dual{T}$ is bounded and $\norm{\dual{T}}\leq \norm{T}$. The inverse inequality is an exercize.
+\end{proof}
+
+\begin{def} \label{ dual def}
+	Let $E,F$ be normed spaces and $T \in \scrL(E,F)$. The $\dual{T} : \dual{F} \to \dual{E} , \dual{T}\phi= \phi \circ T$ is 
+	called the \emph{dual operator} of $T$
+\end{def}

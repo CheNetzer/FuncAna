@@ -1,0 +1,317 @@
+\section{Hahn-Banach Theorem and Corollaries}
+ % To be overlooked %
+\begin{definition}
+\begin{enumerate}
+	\item[a)] Let $E$ be a linear space. Then the algebraic dual space of $E$ which is the space of linear maps $E \rightarrow \K$, is denoted $E'$.
+	\item[b)] Let $E$ be an $\R$-vector space. Then $p: E \rightarrow \R$ is a sublinear functional on $E$ if all $x,y \in E$ and $\lambda \in \R$ satisfy
+	$p(x+y) \le p(x) + p(y)$ and $p(\lambda x) = \lambda p(x)$,
+\end{enumerate}
+\end{definition}
+
+\begin{lemma}
+... to be continued
+\end{lemma}
+
+% Axel Flinth ----------------------------
+\paragraph*{WARNING} The first lemma of the day uses the Lemma of Zorn. If you're not comfortable with it, then essentially everything in this lecture will be very hard to swallow!
+
+When now everyone has been warned it is time for
+
+\begin{lemma} Let $E$ be an $\R$-vector space, $F \subseteq E$ a linear subspace and $p$ a sublinear functional on E. Further let $f \in F'$ with
+\begin{equation*}
+f(x) \leq p(x) \quad \forall x \in F
+\end{equation*}
+Then there exists $l \in E'$ with $l\vert_F =f$ and $l(x) \leq p(x) \forall x \in E$.
+\end{lemma}
+\begin{proof}
+Set
+\begin{eqnarray*}
+\mathcal{L}= \{ (L,l)&:& L \text{ linear subspace of } E \text{ with } L\supset F  \\
+                     && \text{and } l \in L' \text{ with } l\vert_ F =f \text{ and } l(x)\leq p(x) \forall x \in L\}
+\end{eqnarray*}
+To prove is the existence of a pair of the form $(E,l) \in \L$. To do this, we define an ordering on $\L$.
+\begin{equation*}
+(L_1, l_1) \leq (L_2,l_2) \Leftrightarrow L_1 \subset L_2 \land l_2\vert_{L_1} = l_1
+\end{equation*}
+We know that $\mathcal{L}\neq \varnothing$, then we have $(F,f) \in \L$. 
+
+We want to use the Lemma of Zorn. Let $\mathscr{K}$ be a chain in $\L$. To prove is that $\KK$ has an upper bound in $\L$. We claim that if we set
+\begin{equation*}
+\tilde{L}= \{ L : \exists l' \text{ with } ( L,l') \in \mathscr{K} \}
+\end{equation*} 
+then $\tilde{L}$ is a linear subspace since $\KK$ is linearly ordered. define $\tilde{l}: \tilde{L} \to \R$ through
+\begin{eqnarray*}
+\tilde{l}(x) := l(x) &&\text{if } x \in L \text { and }\\
+ && l \in L' \text{ with } (L,l) \in \mathscr{K}
+\end{eqnarray*}
+We know by the definition of $\tilde{L}$ that such an $l$ always exists. In fact, this definition is well-defined, since if $(L_2,l_2) \in \KK$ is another pair with $x \in L_2$, then one of the pairs is bigger with respect to the ordering ($\mathscr{K}$ is a chain), WLOG $(L_1,l_1) \leq (L_2,l_2)$. Then, because of $x \in L_1$ we have $l_2(x)=l_1(x)$.
+
+$\tilde{l}\in \tilde{L}'$. To prove is only the linearity. Let $x_i \in L_i, \alpha_i \in \mathbb{R}, (L_i, l_i) \in \mathscr{K}, i=1,2$. Then WLOG $(L_1,l_1) \leq (L_2,l_2)$. Therefore $x_1  \in L_2$ and thus $\alpha_1 x_1 +\alpha_2 x_2 \in  L_2$. There follows
+\begin{eqnarray*}
+\tilde{l}(\alpha_1 x_1 + \alpha_2 x_2) &=& l_2(\alpha_2 x_1 +\alpha_2 x_2)  = \alpha_1 l_2(x_1) + \alpha_2 l_2(x_2) \\
+ &=& \alpha_1 l_1(x_1) + \alpha_2 l_2(x_2) = \alpha_1 \tilde{l}(x_1) + \alpha_2 \tilde{l}(x_2)
+\end{eqnarray*}
+
+
+Finally $\tilde{l}(x) =l(x) \leq p(x)$. The Lemma of Zorn now provides the existence of a maximal element of $\mathcal{L}$ $(L,l) \in \mathcal{L}$. To prove is $L=E$. 
+
+Suppose the opposite, then there exists $x_0 \in E \backslash L$. By Lemma 4.2, there exists $g \in (L + \R x_0)'$ with $g \vert_L =l$ and $g(x)\leq p(x) \quad \forall x \in (L+\mathbb{R}x_0)$. Then we although have $(L,l) < (L + \mathbb{R}x_0, g)$. Contradiction!
+
+Thus $L=E$, this proves the Lemma.
+\end{proof}
+
+\begin{theo} Let $E$ be a vector space over $\mathbb{K}$, $F$ a linear subspace and $f \in F'$.
+
+Let $p: E \to \mathbb{R}$ be a seminorm on E, i.e. for all $x,y \in E, \lambda \in \mathbb{K}$
+\begin{eqnarray*}
+p(x+y) &\leq & p(x) + p(y) \\
+p(\lambda x) &=& \vert \lambda \vert p(x)
+\end{eqnarray*}
+
+Suppose that $\vert f(x) \vert \leq p(x)$ for all $x \in F$. Then there exists an $l \in E'$ with $l\vert_F=f$ and $\vert l(x) \vert \leq p(x) \quad \forall x \in E$.
+\end{theo}
+
+\begin{proof}
+First consider $\mathbb{K}=\mathbb{R}$. Then $f(x) \leq p(x)$ for all $x \in F$ and $p(\alpha x )= \alpha p(x)$ for all $x\in E , \alpha \geq 0$. By Lemma 4.3, there exists some $l \in E'$ with $l\vert_F=f$ and $l(x)\leq p(x) \quad \forall x \in E$. Since also
+\begin{equation*}
+-l(x) = l(-x) \leq p(-x)=p(x)
+\end{equation*}
+we have $\vert l(x) \vert \leq p(x)$.
+
+The case $\mathbb{K}=\mathbb{C}$ will be discussed in the exercises.
+\end{proof}
+
+\begin{theo}{(Hahn-Banach Theorem)} Let $E$ be a normed space, $F$ a linear subspace of $E$. Then for each $f \in F^{\ast}$ there exists some $l \in E^{\ast}$ with
+\begin{equation*}
+l \vert_F =f \land \Vert l \Vert = \Vert f \Vert
+\end{equation*}
+\end{theo}
+
+\begin{proof}
+Let $p$ be defined by
+\begin{equation*}
+p(x) = \Vert f \Vert \Vert x \Vert
+\end{equation*}
+Then $p$ is a seminorm - the properties are inherited from the norm properties of $\Vert \cdot \Vert$. Furthermore
+\begin{equation*}
+\vert f(x) \vert \leq p(x) \quad \forall x\in F
+\end{equation*}
+By Theorem 4.4, there exists $l \in E'$ with $l \vert_F=f$ and $ \vert l (x) \vert \leq p(x)= \Vert f \Vert \Vert x \Vert$. This proves in particular that $l \in E^{\ast}$ and $\Vert l \Vert \leq \Vert f \Vert$. Because of $l \vert_F=f$, the reverse inequality holds. Thus $\Vert l \Vert = \Vert f \Vert$. 
+\end{proof}
+
+\begin{kor}
+Let $E$ be a normed space and $F$ a linear subspace of $E$ and $x \in E$ such that
+\begin{equation*}
+\delta := \inf_{y \in F} \Vert x - y \Vert >0
+\end{equation*}
+Then there exists an $l \in E^{\ast}$ with
+\begin{equation*}
+l \vert_F =0, \Vert l \Vert =1 \text{ and } l(x)=\delta
+\end{equation*}
+In particular, for any $x\neq0$ there exists an $l \in E^{\ast}$ with $\Vert l \Vert =1$ and $l(x)= \Vert x\Vert $.
+\end{kor}
+\begin{proof}
+Let $G=F + \mathbb{K}x$ and $g: G \to \mathbb{K}$ be defined through
+\begin{equation*}
+g(y + \lambda x)= \lambda \delta \quad \forall y \in F, \lambda \in \mathbb{K}
+\end{equation*}
+$g$ is well defined, then because of $x \notin F$ we have $G = F \oplus \mathbb{K}x$. Further $g$ is linear, $g\vert_F=0$ and $g(x)=\delta$.
+
+We know claim $\Vert g \Vert =1$. There holds
+\begin{eqnarray*}
+\vert g(y + \lambda x) \vert = \vert \lambda \vert \delta &=& \vert \lambda \vert \inf_{z \in F} \Vert z-x \Vert \\ &=& \inf_{z \in F} \Vert \lambda z - \lambda x \Vert = \inf_{z \in F} \Vert z+\lambda x \Vert \leq \Vert y + \lambda x \Vert
+\end{eqnarray*}
+thus $\Vert g \Vert \leq 1$.
+
+Secondly, there exists for every $\epsilon>0$ a $z_{\epsilon} \in F$ with $\delta \leq \Vert z_{\epsilon} + x \Vert \leq \delta + \epsilon$. There follows
+\begin{eqnarray*}
+g(x + z_{\epsilon})&=& \delta \geq \Vert x+z_{\epsilon} \Vert - \epsilon \Leftarrow \\
+g(\Vert x+ z_{\epsilon} \Vert^{-1}(x+z_{\epsilon})) &=&  \frac{\delta}{\Vert x+z_{\epsilon}\Vert} \geq 1 - \frac{\epsilon}{\Vert x + z_{\epsilon}} \geq 1-\frac{\epsilon}{\delta}
+\end{eqnarray*}
+Now apply Theorem 4.5 to lift $g$ up to $E^{\ast}$.
+
+For the in-particular part, choose $F=\{0\}$.
+\end{proof}
+
+We know define an important concept
+\begin{definition}
+Let $E$ be a normed space, $M \subset E$ an arbitrary subset of $E$ and $L \in E^{\ast}$ one of $E^{\ast}$. Then the annihilator of $M$ in $E^{\ast}$ is
+\begin{equation*}
+M^{\perp} := \{ l \in E^{\ast} : l(x) =0 \forall x \in M \}
+\end{equation*}
+and the annihilator of $L$ in $E$ is
+\begin{equation*}
+L_{\perp} = \{ x \in E: l(x)=0 \forall l\in L \}
+\end{equation*}
+\end{definition}
+
+\begin{rem} 
+The annihilators are closed linear subspaces of $E^{\ast}$ and $E$, respectively. This follows from the continuity of $l \mapsto l(x), x \mapsto l(x)$.
+\end{rem}
+
+\begin{lemma} Let $E$ be a normed space and $\varnothing \neq M \subseteq E$. Then $(M^{\perp})_{\perp}$ is the closed linear hull of $M$, i.e. the smallest closed linear subspace of $E$ which contains $M$.
+\end{lemma}
+\begin{proof}
+If $x \in M$, then $l(x)=0$ for all $l \in M^{\perp}$, thus $x \in (M^{\perp})_{\perp} \Leftarrow M \subseteq (M^{\perp})_{\perp}$.
+
+Now let $F$ be the closed linear hull of $M$. By the remark, $F \subseteq (M^{\perp})_{\perp}$. Now assume there exists $x \in (M^{\perp})_{\perp} \backslash F$. Corollary 4.6 secures the existence of an $l \in (M^{\perp})_{\perp}^{\ast}$ with $l \vert_F=0$ and $l(x)=0$.
+
+Theorem 4.5 now implies the existence of an $f \in E^{\ast}$ with $f\vert_{(M^{\perp})_{\perp}}=l$. $f$ is in $M^{\perp}$ because of $f\vert_F = l\vert_F =0$ and $M\subseteq F$. But $f(x)\neq 0$ - Contradiction! 
+\end{proof}
+
+\setcounter{theo}{9}  %% Remove this when continuing the script!!!!!!!!!!!
+\begin{theo}\label{4:t:isoiso}
+Let $E$ be a normed space over $\K$, and $F\sse E$ a linear subspace.
+\begin{enumerate}
+\item[(i)] The linear operator
+$$
+\Phi : E^*/F^\perp\to F^*,\quad \Phi(f + F^\perp) = f|_F,\;f\in E^*,
+$$
+is an isometric isomorphism.
+\item[(ii)] If $F$ is closed, then the linear operator
+$$
+\Phi : (E/F)^*\to F^\perp,\quad (\Phi f)(x) = f(x+F),\;x\in E,\,f\in (E/F)^*,
+$$
+is an isometric isomorphism.
+\end{enumerate}
+\end{theo}
+\begin{proof}
+(i). Consider the map $T : E^*\to F^*$, $Tf := f|_F$, $f\in E^*$. We have $\ker T = F^\perp$. Hence, $\Phi$ is well-defined, linear, and injective. By Theorem 4.5\marginpar{Reference!}, for each $\ell\in F^*$ there exists some $f\in E^*$ with $f|_F = \ell$. Hence, $\Phi$ is surjective. Finally, let $f\in E^*$, and choose $g\in E^*$ such that
+$$
+\|g\| = \|f|_F\|\quad\text{and}\quad g|_F = f|_F.
+$$
+Then, we obtain
+$$
+\|f + F^\perp\| \le \|f + (g-f)\| = \|g\| = \|f|_F\| = \|\Phi(f + F^\perp)\|.
+$$
+On the other hand, for all $g\in F^\perp$,
+$$
+\|\Phi(f + F^\perp)\| = \|f|_F\| = \|(f+g)|_F\|\le \|f + g\|.
+$$
+Hence, $\|\Phi(f + F^\perp)\|\le \|f + F^\perp\|$.
+
+(ii). First, $\Phi f : E\to\K$, $x\mapsto f(x + F)$, is linear. Since
+$$
+|(\Phi f)(x)| = |f(x+F)|\le \|f\|\cdot\|x+F\|\le\|f\|\cdot\|x\|,
+$$
+we have $\Phi f\in E^*$. If $x\in F$, then $(\Phi f)(x) = f(F) = 0$, hence $\Phi f\in F^\perp$. Therefore, indeed $\Phi : (E/F)^*\to F^\perp$. It is obvious that $\Phi$ is linear and injective. To prove surjectivity, let $g\in F^\perp$, and let $f : E/F\to\K$ be defined by
+$$
+f(x+F) = g(x),\quad x\in E.
+$$
+The functional $f$ is is well-defined since $F\sse\ker g$. Moreover, $f$ is linear, and for all $x\in E$, $y\in F$ we have
+$$
+|f(x+F)| = |g(x)| = |g(x+y)|\le\|g\|\cdot\|x+y\|,
+$$
+which implies $f\in (E/F)^*$. In addition, $\Phi f = g$, and surjectivity is proved.
+
+It remains to show that $\Phi$ is isometric. For this, note that $|(\Phi f)(x)|\le \|f\|\cdot\|x\|$, $x\in E$, implies $\|\Phi f\|\le\|f\|$ for all $f\in (E/F)^*$. On the other hand, for each $\veps > 0$ there exists $x\in E$ with
+$$
+\|x + F\| = 1\quad\text{and}\quad |f(x + F)|\ge\|f\| - \veps.
+$$
+Since $1 = \|x + F\| = \inf_{y\in F}\|x + y\|$, there exists $y\in F$ with $\|x + y\|\le 1+\veps$. This implies $\|\frac{x+y}{1+\veps}\|\le 1$ and hence
+$$
+\left|(\Phi f)\left(\frac{x+y}{1+\veps}\right)\right| = \frac{|f(x+F)|}{1+\veps}\ge\frac{\|f\| - \veps}{1+\veps}.
+$$
+Thus $\|\Phi f\|\ge \frac{\|f\| - \veps}{1+\veps}$, which yields $\|\Phi f\|\ge\|f\|$. This proves that $\Phi$ is isometric.
+\end{proof}
+
+\begin{lemma}
+Let $E$ be a normed space over $\K$. For $x\in E$ let $\hat x : E^*\to\K$ be defined by $\hat x(\ell) = \ell(x)$, $\ell\in E^*$. Then $\Lambda_E : E\to (E^*)^*$, $\Lambda_Ex = \hat x$, is an isometric linear operator.
+\end{lemma}
+\begin{proof}
+$\Lambda_E$ is linear, and for $x\in E$ we have
+$$
+\sup\{|\hat x(\ell)| : \ell\in E^*,\,\|\ell\|=1\} = \sup\{|\ell(x)| : \ell\in E^*,\,\|\ell\|=1\} = \|x\|,
+$$
+where the last equality follows from Corollary 4.6\marginpar{Reference!}. This proves that indeed $\hat x\in (E^*)^*$ and that $\|\Lambda_E x\| = \|\hat x\| = \|x\|$ for all $x\in E$.
+\end{proof}
+
+\begin{definition}
+Let $E$ be a normed space over $\K$, and let $\Lambda_E$ be defined as above. Then $\Lambda_E$ is called {\em canonical map} or {\em embedding} of $E$ in $E^{**} := (E^*)^*$. $E$ is {\em reflexive}, if $\Lambda_E$ is surjective. $E^{**}$ is the {\em bi-dual} of $E$, and $\ol{\Lambda_E(E)}$ is the {\em completion} of $E$.
+\end{definition}
+
+\begin{rem}
+Only Banach spaces can be reflexive. The class of reflexive spaces is a highly important class of Banach spaces. Intriguingly, there exist non-reflexive Banach spaces, which are isometrically isomorphic to their bi-dual. Moreover, notice that finite-dimensional spaces are always reflexive because of $\dim E^{**} = \dim E$.
+\end{rem}
+
+\begin{theo}\label{4:t:refl_1}
+Let $E$ be a normed space over $\K$.
+\begin{enumerate}
+\item[(i)] If $E$ is reflexive and $F\sse E$ a closed linear subspace, then $F$ is also reflexive.
+\item[(ii)] If $E$ is a Banach space, then $E$ is reflexive if and only if $E^*$ is reflexive.
+\end{enumerate}
+\end{theo}
+\begin{proof}
+(i). We have to show that for each $\vphi\in F^{**}$ there exists some $y\in F$ with $\vphi(f) = f(y)$ for all $f\in F^*$. For this, let $\vphi\in F^{**}$ and let $\psi : E^*\to\K$ be defined by $\psi(\ell) := \vphi(\ell|_F)$, $\ell\in E^*$. Since
+$$
+|\psi(\ell)|\le\|\vphi\|\cdot\|\ell|_F\|\le\|\vphi\|\cdot\|\ell\|,
+$$
+we have $\psi\in E^{**}$. $E$ being reflexive then implies that there exists $y\in E$ with $\psi(\ell) = \ell(y)$ for all $\ell\in E^*$. Next, towards a contradiction, assume that $y\notin F$. Then there exists some $\ell\in E^*$ with $\ell(y)\neq 0$ and $\ell|_F = 0$. Hence, $0\neq\ell(y) = \psi(\ell) = \vphi(\ell|_F) = 0$. A contradiction. Finally, for $f\in F^*$ there exists some $\ell\in E^*$ with $\ell|_F = f$, hence
+$$
+\vphi(f) = \vphi(\ell|_F) = \psi(\ell) = \ell(y) = f(y).
+$$
+This shows that $F$ is reflexive.
+
+(ii). Let $E$ be reflexive. We need to show that for each $u\in E^{***}$ there exists some $f\in E^*$ with $u(\vphi) = \vphi(f)$ for all $\vphi\in E^{**}$. For this, let $u\in E^{***}$, and set $f(x) := u(\hat x)$, $x\in E$. Then $f\in E^*$. Next, let $\vphi\in E^{**}$. Since there hence exists some $x\in E$ with $\hat x = \vphi$, we obtain
+$$
+u(\vphi) = u(\hat x) = f(x) = \hat x(f) = \vphi(f).
+$$
+Therefore, $E^*$ is reflexive.
+
+For the converse, let $E^*$ be reflexive. Then, by the above, $E^{**}$ is reflexive. By (i), also $\Lambda_E(E) = \ol{\Lambda_E(E)}$ is reflexive. The claim now follows from the fact that $E$ and $\Lambda_E(E)$ are (isometrically) isomorphic (see Exercise Sheet 6, Exercise 1(ii)).
+\end{proof}
+
+\begin{theo}
+Let $E$ be a Banach space and $F\sse E$ a closed linear subspace. Then the following are equivalent:
+\begin{enumerate}
+\item[(i)] $E$ is reflexive.
+\item[(ii)] $F$ and $E/F$ are reflexive.
+\end{enumerate}
+\end{theo}
+\begin{proof}
+(i)$\Ra$(ii). By (i) and Theorem \ref{4:t:refl_1}(i), also $F$ is reflexive. By Theorem \ref{4:t:refl_1}(ii), $E^*$ is reflexive, hence $F^\perp$ is reflexive. By Theorem \ref{4:t:isoiso}(ii), $F^\perp$ is isometrically isomorphic to $(E/F)^*$ which is therefore also reflexive. By Theorem \ref{4:t:refl_1}(ii), this finally implies that $E/F$ is reflexive.
+
+(ii)$\Ra$(i). Let $\vphi\in E^{**}$. We will again use the isometric isomorphism
+$$
+\Phi : (E/F)^*\to F^\perp\sse E^*,\quad (\Phi u)(x) = u(x+F),\;u\in (E/F)^*,\,x\in E,
+$$
+from Theorem \ref{4:t:isoiso}. Then we can define $\psi\in (E/F)^{**}$ by
+$$
+\psi(u) := \vphi(\Phi u),\quad u\in (E/F)^*.
+$$
+Since $E/F$ is reflexive, there exists some $x\in E$ with $\wh{x+F} = \psi$, i.e.
+$$
+\vphi(\Phi u) = \psi(u) = (\wh{x+F})(u) = u(x+F) = (\Phi u)(x) = \hat x(\Phi u),\quad u\in(E/F)^*.
+$$
+Hence, $(\vphi - \hat x)|_{F^\perp} = 0$.
+
+To utilize the reflexivity of $F$, we next define a suitable $\rho\in F^{**}$. For each $f\in F^*$, choose some $g\in E^*$ with $g|_F = f$ and $\|g\| = \|f\|$. Then define
+$$
+\rho(f) := (\vphi - \hat x)(g).
+$$
+This is a proper definition since for two extensions $g,h\in E^*$ of $f$ we have $(g - h)|_F = 0$ and thus $g - h\in F^\perp$. A similar argument shows that $\rho$ is linear. Moreover,
+$$
+|\rho(f)|\le\|\vphi - \hat x\|\cdot\|g\| = \|\vphi - \hat x\|\cdot\|f\|.
+$$
+Thus, $\rho\in F^{**}$. As $F$ is reflexive, there exists some $y\in F$ with $\rho(f) = f(y)$ for all $f\in F^*$. Now, we conclude that for all $g\in E^*$ we have
+$$
+\hat y(g) = g(y) = (g|_F)(y) = \rho(g|_F) = (\vphi - \hat x)(h)
+$$
+with some $h\in E^*$ satisfying $h|_F = g|_F$ and $\|h\| = \|g|_F\|$. Hence, $h - g\in F^\perp$ and thus $\hat y(g) = (\vphi - \hat x)(g)$ for all $g\in E^*$. Equivalently, $\vphi = \hat x + \hat y = \wh{x + y}\in\Lambda_E(E)$, which shows that $E$ is reflexive.
+\end{proof}
+
+\begin{theo}
+Let $E$ and $F$ be normed spaces, $E\neq\{0\}$. If $\calL(E,F)$ is complete, then so is $F$.
+\end{theo}
+\begin{proof}
+First, choose $x_0\in E$ with $\|x_0\|=1$. Then there exists some $f\in E^*$ with $f(x_0) = \|x_0\| = 1 = \|f\|$. Next, let $(y_n)_{n\in\N}\sse F$ be a Cauchy sequence, and define $T_n : E\to F$ by
+$$
+T_nx := f(x)y_n,\quad x\in E.
+$$
+Since $\|T_nx\|\le\|f\|\|x\|\|y_n\| = \|y_n\|\|x\|$ for $x\in E$, we have $T_n\in\calL(E,F)$. Further, $\|T_n x- T_m x\| = |f(x)|\|y_n - y_m\|\le\|y_n - y_m\|\|x\|$ implies
+$$
+\|T_n - T_m\|\le\|y_n - y_m\|.
+$$
+Hence $(T_n)_{n\in\N}$ is a Cauchy sequence in $\calL(E,F)$ and thus converges to some $T\in\calL(E,F)$. This implies $y_n = T_nx_0\to Tx_0$ as $n\to\infty$, i.e.\ $(y_n)_{n\in\N}$ converges in $F$.
+\end{proof}
+

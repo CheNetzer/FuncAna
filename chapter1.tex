@@ -1,0 +1,501 @@
+\section{Metric spaces}
+
+In this chapter we recall the basic notions of metric spaces and prove Baire's theorem and the theorem of Arzela-Ascoli. Throughout this lecture $\K$ will always denote either $\R$ or $\C$.
+
+\begin{definition}
+	Let $X$ be a set. Then a map $d\colon X\times X\to[0,\infty)$ is called a \emph{metric on $X$}, if for all $x,y,z\in X$	
+	\begin{align*}
+	\hspace{-1cm}&(i)  \hspace{-2cm}&d(x,y)&=0 \eq x=y.\\
+	\hspace{-1cm}&(ii)  \hspace{-2cm}&d(x,y)&=d(y,x).\\
+	\hspace{-1cm}&(iii)  \hspace{-2cm}&d(x,z)&\leq d(x,y)+d(y,z). \tag{Triangle inequality}
+	\end{align*}
+	$(X,d)$ is then called a \emph{metric space}, and $d(x,y)$ is referred to as the \emph{distance} between $x$ and $y$.
+	If $Y\subseteq X$, then $d|_{Y\times Y}$ is the \emph{induced metric on $Y$}.
+\end{definition}
+
+Notice that the non-negativity of a metric already follows from
+\[
+	0 = d(x,x) \leq d(x,y)+d(y,x) = 2d(x,y).
+\]
+Next we will give some important examples of metrics on function spaces, sequence spaces and $\K^n$. Also, we can define a metric on every set as the first example will show.
+
+\begin{bsp}\label{lp-spaces}~\begin{enumerate}
+	\item[(1)]
+		Let $X$ be a set and let $d\colon X\times X\to [0,\infty)$ be defined by
+		\begin{align*}
+			d(x,y):=\begin{cases}1:x\neq y\\0:\text{else}\end{cases}
+		\end{align*}
+		This is the so-called \emph{discrete metric}. Hence this always defines a metric.
+	\item[(2)]
+		Let $X$ be a set and define
+		\begin{align*}
+			B(X)=\{f\colon X\to \K:f\text{ is bounded}\}.
+		\end{align*}
+		Then
+		\begin{align*}
+			d(f,g):=\sup\limits_{x\in X} |f(x)-g(x)|
+		\end{align*}
+		is a metric on $B(X)$, the so-called \emph{supremum metric}.
+		Let now $X=[a,b]$ and set
+		\begin{align*}
+			C[a,b]=\{f\colon[a,b]\to\K:f\text{ continuous}\}.
+		\end{align*}
+		Then
+		\begin{align*}
+			C[a,b]\subseteq B[a,b]
+		\end{align*}
+		and hence $d$ induces a metric on $C[a,b]$.
+	\item[(3)]
+		For $1\leq p<\infty$, let $d_p\colon\K^n\times\K^n\to[0,\infty)$ be defined by
+		\begin{align*}
+			d_p(x,y)&:= \left(\sum\limits_{j=1}^n|x_j-y_j|^p\right)^\frac1p,~x=(x_j)_{j\in\N},~y=(y_j)_{j\in\N},
+		\intertext{and let $d_\infty\colon\K^n\times\K^n\to[0,\infty)$ be defined by}
+			d_\infty(x,y)&:=\max\limits_{1\leq j\leq n}|x_j-y_j|.
+		\end{align*}
+		$p=1,\infty$ : This is obviously a metric\\
+		$1<p<\infty$ : Theorem \ref{minkowski} will imply that this is a metric.
+	\item[(4)]
+		The spaces $(\K^n,d_p)$ can be generalized to "infinite-dimensional sequence spaces". For this, for $1\leq p<\infty$, set
+		\begin{align*}
+			\ell_p:=\left\{x=(x_n)_\nin:x_n\in\K,~\sum\limits_{n=1}^\infty|x_n|^p<\infty\right\},
+		\end{align*}
+		and define $d_p\colon \ell_p\times \ell_p\to[0,\infty)$ by
+		\begin{align*}
+			d_p(x,y)=\left(\sum\limits_{n=1}^\infty|x_n-y_n|^p\right)^\frac1p.
+		\end{align*}
+		This is well-defined, since by Theorem \ref{minkowski} $\ell_p$ is a linear space. Let further $\ell_\infty$ be defined by
+		\begin{align*}
+			\ell_\infty:=\left\{ x=(x_n)_\nin:(x_n)_\nin\text{ bounded}\right\}
+		\intertext{and define $d_\infty\colon \ell_\infty\times \ell_\infty\to[0,\infty)$ by}
+			d_\infty(x,y):=\sup\limits_\nin|x_n-y_n|.
+		\end{align*}
+		Then $(\ell_p,d_p)$, $1\leq p\leq\infty$ are metric spaces, again partly proven by Theorem \ref{minkowski}.
+	\end{enumerate}
+\end{bsp}
+
+To show the triangle inequality for the $\ell_p$-spaces we need another inequality, which is important in its own right. Hölder's inequality gives upper bounds on a series of products in terms of products of series.
+
+\begin{theo}[Hölder's inequality]\label{holder}
+	Let $1<p<\infty$, and let $1<q<\infty$ be defined by $q:=\frac{p}{p-1}$ (hence $\frac1p+\frac1q=1$). 
+	Then, for $x\in \ell_p$ and $y\in \ell_q$, we have
+	\begin{align*}
+		\sum\limits_{n=1}^\infty|x_n {y}_n|
+		\leq\left(\sum\limits_{n=1}^\infty|x_n|^p\right)^\frac1p\left(\sum\limits_{n=1}^\infty|y_n|^q\right)^\frac1q.
+	\end{align*}
+	(Case $p=q=2$: Schwarz' inequality)
+\end{theo}
+\begin{proof}
+	Let $c=\frac1p$ and define $\ph\colon[0,\infty)\to\R$ by $\ph(t)=t^c-ct$. Then
+	\begin{align*}
+		\ph'(t)=ct^{c-1}-c~\text{and}~\ph''(t)=c(c-1)t^{c-2}.
+	\end{align*}
+	Thus $\ph$ has a global maximum value in $t=1$. This implies
+	\begin{align*}
+		1-c&\geq t^c-ct~\text{for all}~t>0,
+	\intertext{hence}
+		t^c-1&\leq c(t-1)\tag{$\ast$}.\label{ast}
+	\intertext{Let now $a,b>0$, and set $t=\frac{a^p}{b^q}$. Then, by \eqref{ast}, we obtain}
+		\frac{a}{b^{\frac{q}{p}}}-1\leq \frac1p\left(\frac{a^p}{b^q}-1\right)
+		&\Ra \frac{a}{b^{q\left(\frac1p-1\right)}}-b^q\leq\frac1p\left(a^p-b^q\right).
+	\intertext{Since $1=\frac1p+\frac1q$, this implies}
+		ab&\leq\frac{a^p}{p} +\frac{b^q}{q} .\tag{$\ast\ast$}\label{astast}
+	\end{align*}
+	We now set
+	\begin{align*}
+		A:=\left(\sum\limits_{n=1}^\infty|x_n|^p\right)^\frac1p~\text{and}~
+		B:=\left(\sum\limits_{n=1}^\infty|y_n|^q\right)^\frac1q
+	\end{align*}
+	as well as $\widetilde x_n:=\frac{x_n}A$ and $\widetilde y_n:=\frac{y_n}B$. WLOG, we assume $A,B>0$. By \eqref{astast}, we obtain
+	\begin{align*}
+		|\widetilde x_n\widetilde y_n|&\leq \frac1p|\widetilde x_n|^p+\frac1q|\widetilde y_n|^q.
+	\intertext{Hence}
+		\sum\limits_{n=1}^\infty|\widetilde x_n \widetilde y_n|
+		&\leq\frac1p\sum\limits_{n=1}^\infty|\widetilde x_n|^p+\frac1q\sum\limits_{n=1}^\infty|\widetilde y_n|^q
+		=\frac1p+\frac1q=1.
+	\intertext{And, finally:}
+		\sum\limits_{n=1}^\infty|x_n y_n|&\leq AB,
+	\end{align*}
+which is the assertion.
+\end{proof}
+
+The following Minkowski's inequality sets the ground for the triangle inequality of the metric $d_p$.
+
+\begin{theo}[Minkowski's inequality]\label{minkowski}
+	For $1<p<\infty$ and $x,y\in \ell_p$,
+	\begin{align*}
+		\left(\sum\limits_{n=1}^\infty |x_n+y_n|^p\right)^\frac1p
+		\leq\left(\sum\limits_{n=1}^\infty |x_n|^p\right)^\frac1p+\left(\sum\limits_{n=1}^\infty |y_n|^p\right)^\frac1p.
+	\end{align*}
+\end{theo}
+\begin{proof}
+	With $z_n:=x_n+y_n$, we first obtain
+	\begin{align*}
+		|z_n|^p&\leq\sum\limits_{n=1}^m|x_n+y_n|\cdot|z_n|^{p-1}\leq\left(|x_n|+|y_n|\right)|z_n|^{p-1}.
+	\intertext{This implies}
+		\sum\limits_{n=1}^m|z_n|^p&\leq \sum\limits_{n=1}^m|x_n|\cdot|z_n|^{p-1}+\sum\limits_{n=1}^m|y_n|\cdot|z_n|^{p-1}
+		~\text{for all}~m\in\N.
+	\intertext{By Theorem \ref{holder},}
+		\sum\limits_{n=1}^m|z_n|^p&\leq\left(\sum\limits_{n=1}^m|x_n|^p\right)^\frac1p \left(\sum\limits_{n=1}^m|z_n|^{(p-1)q}\right)^\frac1q
+			+\left(\sum\limits_{n=1}^m|y_n|^p\right)^\frac1p \left(\sum\limits_{n=1}^m|z_n|^{(p-1)q}\right)^\frac1q.
+	\end{align*}
+	Since $(p-1)q=p$, we conclude that
+	\begin{align*}
+		\left(\sum\limits_{n=1}^m|z_n|^p\right)^\frac1p\left(\sum\limits_{n=1}^m|z_n|^p\right)^{1-\frac1q}
+			\leq\left(\sum\limits_{n=1}^m|x_n|^p\right)^\frac1p+\left(\sum\limits_{n=1}^m|y_n|^p\right)^\frac1p.
+	\end{align*}
+	We now consider $m\to\infty$, which we are allowed to do since the right-hand-side converges. This proves the theorem.
+\end{proof}
+
+The triangle inequality $d_p(u,w)\leq d_p(u,v)+d_p(v,w)$ for all $u,v,w\in \ell_p$ for the metric $d_p$ can now directly be concluded from Theorem \ref{minkowski} by setting $x_n=u_n-v_n$ and $y_n=v_n-w_n$.
+
+\begin{definition} Let $(X,d)$ be a metric space.
+\begin{enumerate}
+	\item[(1)] For $x\in X$ and $r>0$, the set $U_r(x)$ defined by
+		\begin{align*}
+			U_r(x):=\{y\in X:d(x,y)<r\}
+		\end{align*}
+		is called the \emph{open ball} of radius $r$ and center $x$. $U\sub X$ is called \emph{open}, if for each
+		$x\in U$ there exists some $\eps>0$ such that $U_\eps(x)\sub U$.
+	\item[(2)] A set $A\sub X$ is \emph{closed}, if $X\backslash A$ is open. The set
+		\begin{align*}
+			K_r(x):=\{y\in X:d(x,y)\leq r\},~x\in X,~r>0,
+		\end{align*}
+		is called the \emph{closed ball} of radius $r$ and center $x$.
+	\item[(3)] If $E\subseteq X$, then $x\in E$ is an \emph{interior point of $E$}, if there exists some open set $U\subseteq X$
+		with $x\in U\subseteq E$. $E$ is then called a \emph{neighbourhood of $x$}. The set of all interior points is refered to as the
+		\emph{interior of $E$} and is denoted by $\mathring E$.
+	\item[(4)] A point $x\in X$ is called \emph{limit point of E} if $U\cap E\neq\emptyset$ for each neighbourhood $U$ of $x$.
+		The set of all limit points of $E$ is the \emph{closure of $E$}, which is denoted by $\overline E$. $E$ is \emph{dense} in $X$ if 
+		$\overline E=X$.
+\end{enumerate}
+\end{definition}
+
+The openness of a set and all properties that can be defined with reference only to open sets are called topological. In particular, all terms just defined are topological. The open sets in a metric space form a system of sets called topology. 
+This terminology will be generalized to the notion of a topological space in Chapter X\marginpar{Reference!}.
+
+\begin{lemma} Let $(X,d)$ be a metric space.
+\begin{enumerate}
+	\item[(i)] We have \begin{enumerate}
+		\item[(a)] $\emptyset$, $X$ are open.
+		\item[(b)] $U_1,\ldots U_r\subseteq X$ open $\Ra$ $\bigcap\limits_{i=1}^rU_i$ is open.
+		\item[(c)] $U_i\subseteq X$, $i\in I$ open $\Ra$ $\bigcup\limits_{i\in I}U_i$ is open.
+		\end{enumerate}
+		Hence $d$ defines a \emph{topology} on $X$ with $U_\eps(x)$, $x\in X$, $\eps>0$, as basis.
+	\item[(ii)] We have \begin{enumerate}
+		\item[(a)] $\emptyset$, $X$ are closed.
+		\item[(b)] $A_i\subseteq X$, $i\in I$ closed $\Ra$ $\bigcap\limits_{i\in I}A_i$ is closed.
+		\item[(c)] $A_1,\ldots A_r\subseteq X$ open $\Ra$ $\bigcup\limits_{i=1}^rA_i$ is closed.
+		\end{enumerate}
+	\item[(iii)] For each $x\in X$, $r>0$, the set $K_r(x)$ is closed.
+	\item[(iv)] For $E\subseteq X$, $\overline E$ is the smallest closed set containing $E$.
+	\item[(v)] For $E\subseteq X$, $\mathring E$ is the biggest open set contained in $E$.
+\end{enumerate}
+\end{lemma}
+\begin{proof} Tutorials\end{proof}
+
+The next definition generalizes the notion of convergence from $\K^n$ (with the Euclidian metric) to general metric spaces.
+
+\begin{definition} Let $(X,d)$ be a metric space.
+\begin{enumerate}
+	\item[(1)] A sequence $(x_n)_\nin\subseteq X$ \emph{converges} to $x\in X$ if for each $\eps>0$ there exists
+		$N_\eps\in\N$ with $d(x_n,x)<\eps$ for all $n\geq N_\eps$. We then write $x_n\to x$, as $n\to\infty$ or 
+		$x=\lim\limits_{n\to\infty}x_n$. $x$ is called the \emph{limit} of $(x_n)_\nin$.
+	\item[(2)] A sequence $(x_n)_\nin\subseteq X$ is a \emph{Cauchy-sequence}, if for each $\eps>0$ there exists some
+		$N_\eps\in\N$ with
+		\begin{align*} d(x_n,x_m)<\eps\quad\text{for all }n,m\geq N_\eps .\end{align*}
+	\item[(3)] $(X,d)$ is \emph{complete}, if each Cauchy-sequence in $X$ converges.
+\end{enumerate}
+\end{definition}
+
+Convergence of a sequence is a topological property. The sequence $(x_n)_\nin$ converges to $x$, if and only if every neighborhood of $x$ contains all but finitely many elements of the sequence. In particular, the limit of a sequence is independent of the ordering of the sequence's terms. Which sequences are Cauchy-sequences does not only depend on the open sets but also on the chosen metric (see Remark \ref{completeness is not topological}).
+
+In general, topological properties in metric spaces can be tested by sequences. We note that there is a characterization of closedness of a set by convergent sequences.
+
+\begin{lemma}\label{18} Let $(X,d)$ be a metric space.
+\begin{enumerate}
+	\item[(i)] A sequence can have at most one limit.
+	\item[(ii)] Let $E\sub X$. Then $x\in\overline E$ if and only if there exists a sequence $(x_n)_\nin\sub E$ with $x_n\to x$
+		as $n\to\infty$.
+	\item[(iii)] If $(x_n)_\nin\sub X$ is convergent, then $(x_n)_\nin\sub X$ is a Cauchy-sequence. 
+		The converse is not always true\footnote{For example, consider $X=(0,1]$, $x_n=\frac 1n$.}. A Cauchy-sequence is convergent, if it contains a convergent sub\-sequence.
+	\item[(iv)] If $X$ is complete and $E\sub X$ closed, then $E$ is complete. If $E\sub X$ is complete, then $E$ is closed in $X$.
+\end{enumerate}
+\end{lemma}
+\begin{proof} Tutorials\end{proof}
+
+The following example provides the reader with some complete metric spaces.
+
+\begin{bsp}~
+\begin{enumerate}
+	\item[(1)] $B(X)$ is complete.
+		\begin{proof}
+			Let $(f_n)_\nin$ be a Cauchy-sequence in $B(X)$, and for $\eps>0$ let $N_\eps\in\N$ be such that
+			\begin{align*}d(f_n,f_m)<\eps \text{ for all }n,m\geq N_\eps.\end{align*}
+			This implies $|f_n(x)-f_m(x)|<\eps$ for all $x\in X$, $n,m\geq N_\eps$. Hence, for all $x\in X$, $(f_n(x))_\nin$
+			is a Cauchy-sequence in $\K$. Setting $f(x):=\lim\limits_{n\to\infty}f_n(x)$, we obtain
+			\begin{align*}|f(x)-f_m(x)|&=\lim\limits_{n\to\infty}|f_n(x)-f_m(x)|<\eps\quad\forall m\geq N_\eps.
+				\intertext{Hence $|f(x)|\leq|f_n(x)|+\eps$, which implies $f\in B(X)$. Further, for $m\geq N_\eps$,}
+				d(f,f_m)&=\sup\limits_{x\in X}|f(x)-f_m(x)|<\eps,
+			\end{align*}
+			and thus $f=\lim\limits_{n\to\infty}f_n$.
+		\end{proof}
+	\item[(2)] $C[a,b]$ is complete, since it is closed in $B[a,b]$ (see lemma \ref{18}), the reason being that a uniform 
+		limit of continuous functions is again continuous.
+	\item[(3)] $(\K^n,d_p)$, $n\in\N$, $1\leq p\leq\infty$ is complete, since convergence in $\K^n$ w.r.t. $d_p$ is the same as convergence
+		in $\K^n$ w.r.t. the component sequences.
+	\item[(4)] The spaces $\ell_p$, $1\leq p\leq \infty$ are complete.
+		\begin{proof} Let $(x_k)_{k\in\N}$ be a Cauchy-sequence in $\ell_p$, $x_k=(x_{k,n})_\nin$, and for $\eps>0$ let $N_\eps\in\N$
+		be with
+		\begin{align*}
+			d_p(x_k,x_l)&=\left(\sum\limits_{n=1}^\infty|x_{k,n}-x_{l,m}|^p\right)^\frac 1p<\eps&&\hspace{-2cm}
+				\text{and}\label{stern}\tag{$\ast$}\\
+			d_\infty(x_k,x_l)&=\sup\limits_\nin|x_{k,n}-x_{l,n}|<\eps&&\hspace{-2cm}\text{for all }k,l>N_\eps\label{sstern}\tag{$\ast\ast$}
+		\end{align*}
+		Thus, for fixed $n\in N_\eps$, $(x_{k,n})_{k\in\N}$ is a Cauchy-sequence in $\K$. Now set $y_n:=\lim\limits_{k\to\infty}x_{k,n}$
+		and $y:=(y_n)_\nin$. Then $y\in \ell_p$ and $y=\lim\limits_{k\to\infty}x_n$.\\
+		\underline{Reason:} Consider $l\to\infty$, which implies (by \eqref{stern},\eqref{sstern})
+		\begin{align*}
+			\sum\limits_{n=1}^m|x_{k,n}-y_n|^p&<\eps^p~\forall m\in\N
+			\Ra \sum\limits_{n=1}^\infty |x_{k,n}-y_n|^p<\eps^p~\forall k\geq N_\eps\\
+			\text{and }|x_{k,n}-y_n|&<\eps~\forall k\geq N_\eps,~n\in\N.
+		\end{align*}
+		Hence $x_n-y\in \ell_p$, and thus $y\in \ell_p$ and $y=\lim\limits_{k\to\infty}x_k$.
+		\end{proof}
+\end{enumerate}
+\end{bsp}
+
+The following theorem of Baire only holds in complete metric spaces. It is a key ingredient in the proofs of the fundamental theorems of functional analysis. Thus, they will only hold under some completeness assumption.
+
+\begin{theo}[Baire's theorem]\label{baire}
+	Let $(X,d)$ be a complete metric space, and let $D_n$, $\nin$ be open, dense subsets of $X$. Then also 
+	$\bigcap\limits_\nin D_n$ is dense in $X$.
+\end{theo}
+\begin{proof}
+	We need to prove that for all $x\in X$ and $r>0$ we have
+	\begin{align*} U_r(x)\cap\bigcap\limits_{n=1}^\infty D_n\neq\emptyset.\end{align*}
+	For this, let $x\in X$ and $r>0$ be arbitrary, but fixed. By induction define a sequence $(x_n)_\nin\sub X$ and
+	$(r_n)_\nin\sub\R^+$ by
+	\begin{enumerate}[a)]
+		\item\label{blabli} $K_{r_{n+1}}(x_{n+1})\sub D_n\cap U_{r_n}(x_n)$
+		\item\label{blibla} $r_n\leq\frac1n$
+	\end{enumerate}
+	This can be done as follows: First, set $x_1=x$ and $r_1=\min\{1,r\}$.
+	Second, assume that $x_1,\ldots,x_n,r_1,\ldots,r_n$ be already chosen ($n\geq1$). Since $D_n$ is open and dense, also
+	$D_n\cap U_{r_n}(x_n)\neq\emptyset$ is open. Hence there exists $x_{n+1}\in X$ and $r_{n+1}>0$ with
+	\begin{align*}U_{2r_{n+1}}(x_{n+1})\sub D_n\cap U_{r_n}(x)\text{ and } r_{n+1}\leq\frac1{n+1}.\end{align*}
+	This implies \ref{blabli}) and \ref{blibla}), since $K_{r_{n+1}}(x_{n+1})\sub U_{2r_{n+1}}(x_{n+1})$.
+	\p
+	Having constructed sequences $(x_n)$ and $(r_n)$ satisfying a) and b), we obtain
+	\begin{align*}x_n\in K_{r_n}\sub D_{n-1}\cap U_{r_{n-1}}(x_{n-1})\sub U_{r_{n-1}}\sub\ldots\sub U_{r_m}(x_m)\end{align*}
+	for all $n>m$. Thus $d(x_n,x_m)<r_m\leq\frac1m$ for all $n>m$. This implies that $(x_n)_\nin$ is a Cauchy-sequence in X.
+	\p
+	Now set $x_0:=\lim\limits_{n\to\infty}x_n$ (remember that $X$ is complete). Since $d(x_n,x_m)\leq r_m$ for all $n>m$, we obtain
+	$d(x_0,x_m)\leq r_m$ for all $m\in\N$. Thus, finally,
+	\begin{align*}
+	x_0\in\bigcap\limits_{m=1}^\infty K_{r_{m+1}}(x_{m+1})\sub\bigcap\limits_{m=1}^\infty D_m\cap U_{r_m}(x_m)
+	\sub U_{r_1}(x_1)\cap\bigcap\limits_{m=1}^\infty D_m\sub U_r(x)\cap\bigcap\limits_{m=1}^\infty D_m,
+	\end{align*}
+	and the theorem is proved.
+\end{proof}
+
+\begin{bem}~
+	\label{rem:baire}
+\begin{enumerate}
+\item[(a)]	Theorem \ref{baire} is in general false if $X$ is not complete. As an example choose $X=\Q=\{q_1,q_2,\ldots\}$
+	and $D_n=X\backslash\{q_n\}$, $n\in\N$, which are open and dense. We immediately see that however
+	\begin{align*}\bigcap\limits_{n=1}^\infty D_n=\emptyset.\end{align*}
+\item[(b)]	Let $(X,d)$ be complete and $A_n\sub X$, $n\in\N$ closed with $X=\bigcup\limits_{n=1}^\infty A_n$. 
+	Then there exists at least one $n\in\N$ with
+	\begin{align*} \mathring A_n\neq\emptyset.\end{align*}
+	\begin{proof} Towards a contradiction, assume that
+		\begin{align*}\mathring A_n=\emptyset\text{ for all }n\in\N.\end{align*}
+		Then $X\backslash A_n$ are open and dense for all $n\in\N$. By Baire's theorem \ref{baire}, 
+		$\bigcap\limits_{n=1}^\infty(X\backslash A_n)$ dense in $X$. But 
+		$\bigcap\limits_{n=1}^\infty(X\backslash A_n)=X\backslash\bigcup\limits_{n=1}^\infty A_n=\emptyset$. $\lightning$
+	\end{proof}
+\item[(c)]\label{completeness is not topological} Completeness is a property of the particular metric and \underline{not} the convergence in $X$. For example, consider
+	$X=(0,1]$, $d_1(x,y):=\left|\frac 1x-\frac1y\right|$ and $d_2(x,y)=|x-y|$. Then we have
+	\begin{align*}x_n\to x\text{ in }(X,d_1)\eq x_n\to x\text{ in }(X,d_2),\end{align*}
+	but $(X,d_1)$ is complete and $(X,d_2)$ is not (see tutorials).
+\end{enumerate}
+\end{bem}
+
+\begin{definition} Let $(X,d)$ be a metric space.
+\begin{enumerate}
+	\item[(1)] Let $\eps>0$. Then $M\sub X$ is called \emph{$\eps$-net}, if $X=\bigcup\limits_{x\in M}U_\eps(x)$.
+		$X$ is called \emph{totally bounded}, if for each $\eps>0$ there exists a finite $\eps$-net.
+		$A\sub X$ is \emph{totally bounded}, if $(A,d|_{A\times A})$ is totally bounded.
+	\item[(2)] $X$ is \emph{compact}, if every open cover of $X$ (that is, a family of open sets $U_i$, $i\in I$, such that $X=\bigcup_{i\in I}U_i$) has a finite subcover.
+		($A,d|_{A\times A}$) is \emph{compact} if and only if every open cover of $A$ (of open sets in $X$) has a finite subcover.
+\end{enumerate}
+\end{definition}
+
+Compactness and total boundedness are intrinsic properties, that is a subset $A \subseteq (X,d)$ of some metric space is compact (totally bounded) if the metric space $(A,d|_{A\times A})$ is compact (totally bounded).
+
+It is easy to see that every compact metric space is totally bounded. The following theorem shows that the two notions coincide for complete metric spaces. Note that this does not imply that these two properties coincide for all subsets of a complete metric space (see Corollary \ref{cor_comp_bounded}).
+
+\begin{theo}\label{bounded_compact} Let $(X,d)$ be a metric space. Then the following are equivalent:
+\begin{enumerate}[(i)]
+	\item\label{bounded}$(X,d)$ is complete and totally bounded.
+	\item\label{compact}$(X,d)$ is compact.
+	\item\label{conv_subseq} Each finite sequence in $X$ has a convergent subsequence.
+\end{enumerate}
+\end{theo}
+\begin{proof}~
+(\ref{bounded})$\Ra$(\ref{compact}). Towards a contradiction, assume that $X$ is not compact. 
+	Let $\mathfrak{A}$ be an open cover of $X$ which does not
+		contain a finite subcover. By induction, we now define a sequence $(x_n)_\nin\sub X$ satisfying
+		\begin{enumerate}[a)]
+			\item\label{finite}$U_{2^{-n}}(x_n)$ is not covered by finitely many $U\sub\mathfrak{A}$.
+			\item\label{notdisjoint}$U_{2^{-n}}(x_n)\cap U_{2^{-(n+1)}}(x_{n-1})\neq\emptyset$.
+		\end{enumerate}
+		First, for $n=1$, notice that $X$ is totally bounded. Hence $X=\bigcup\limits_{y\in M}U_{\frac12}(y)$, $|M|<\infty$, 
+		which implies that there exists $y_{i_0}=:x_1\in X$ such that $U_\frac12(x_1)$ is not covered by finitely many $U\sub\mathfrak{A}$.
+		Second ($n\to n+1$), again by totally boundedness, there exists a finite $M$ such that 
+		$X=\bigcap\limits_{y\in M}U_{2^{-(n+1)}}(y)$. Assume $x_1,\ldots,x_n$ are chosen such that \ref{finite}) and \ref{notdisjoint}) 
+		are satisfied.
+		Towards a contradiction assume that for each $y\in M$ with $U_{2^{-(n+1)}}(y)\cap U_{2^{-n}}(x_n)\neq\emptyset$, the set
+		$U_{2^{-(n+1)}}(y)$ is covered by finitely many $U\in\mathfrak{A}$. Then this is also true for $U_{2^{-n}}(x_n)$ $\lightning$.
+		Hence there exists $x_{n+1}\in X$ with $U_{2^{-(n+1)}}(x_{n+1})$ is not covered by finitely many $U\in\mathfrak{A}$ and
+		$U_{2^-n}(x_n)\cap U_{2^{-(n+1)}}(x_{n+1})\neq\emptyset.$
+		\p
+		For each $n\in\N$, let $z_n\in U_{2^{-n}}(x_n)\cap U_{2^{-(n+1)}}(x_{n+1})$. Then, for $m>n$,
+		\begin{align*}
+			d(x_m,x_n)\leq\sum\limits_{\nu=n}^{m-1}d(x_{\nu+1},x_\nu)
+			\leq&\sum\limits_{\nu=n}^{m-1}\left( d(x_{\nu+1},z_\nu)+d(z_\nu,x_\nu)\right)\\
+			\leq&\sum\limits_{\nu=n}^{m-1}\left(2^{-(\nu+1)}+2^{-\nu}\right)\leq2\sum\limits_{\nu=n}^{m-1}2^{-\nu}\leq\frac{1}{2^{n-2}}.		
+		\end{align*}
+		This implies that $(x_n)_\nin$ is a Cauchy-sequence. Since $X$ is complete, there exists $x=\lim\limits_{n\to\infty}x_n$.
+		\p
+		Now choose $U\sub\mathfrak{A}$ with $x\in U$ and choose $\eps>0$ such that $U_\eps(x)\sub U$. Then
+		$(x_n)\in U_{\frac{\eps}{2}}(x)$ for all $n\geq N$, hence $U_{2^{-n}}(x_n)\sub U$ for all $n\geq N$ with $2^{-n}<\frac\eps2$
+		$\lightning$ to choice of $U_{2^{-n}}(x_n)$.
+		
+(\ref{compact})$\Ra$(\ref{conv_subseq}).
+		Let $(x_n)_\nin$ be a sequence in $X$ and set $A_n:=\overline{\{x_\nu:\nu>n\}}\sub X$. Towards a contradiction assume that
+		\begin{align*}\bigcap\limits_\nin A_n=\emptyset.\end{align*}
+		This implies $\bigcup\limits_\nin(X\backslash A_n)=X.$ Since $X$ is compact, the open cover $\{X\backslash A_n\}_\nin$
+		contains an open subcover $\{X\backslash A_{n_j}:1\leq j\leq r\}$. Since $A_{n+1}\sub A_n$, hence 
+		$X\backslash A_n\sub X\backslash A_{n+1}$, for $N:=\max\{n_j:1\leq j\leq r\}$ we have
+		\begin{align*} X=\bigcup\limits_{j=1}^rX\backslash A_{n_j}=X\backslash A_N.\end{align*}
+		Thus $A_N=\emptyset$ $\lightning$.\\
+		This proves $\bigcap\limits_\nin A_n\neq\emptyset$. Choosing $x\in\bigcap\limits_\nin A_n$, there exists a
+		sequence $(n_k)_{k\in\N}\sub\N$ with $n_{k+1}>n_k$ and $d(x_{n_k},x)\leq\frac1k$ [if $n_k$ is chosen, then $x\in A_{n_{k+1}}$].
+		This shows (\ref{conv_subseq}), since $(x_{n_k})_{k\in\N}$ is a convergent subsequence of $X$.
+
+(\ref{conv_subseq})$\Ra$(\ref{bounded}). Each Cauchy-sequence in $X$ contains by hypothesis a convergent susequence, is hence itself convergent.
+		This implies that $X$ is complete.\\
+		Towards a contradiction, we now assume that $X$ is not totally bounded. Then there exists $\eps>0$ such that $X$ is not covered
+		by finitely many $U_\eps(x)$, $x\in X$. By induction, we define a sequence $(x_n)_\nin\sub X$ with
+		\begin{align*} x_n\notin U_\eps(x_j),~1\leq j\leq n-1.\end{align*}
+		This can be achieved in the following way: Let $x_1\in X$ be arbitrary. Then assume $x_1,\ldots,x_n$ are already constructed.
+		Since
+		\begin{align*}
+		X\backslash\bigcup\limits_{j=1}^n U_\eps(x_j)&\neq\emptyset,
+		\intertext{choose $x_{n+1}\in X\backslash\bigcup\limits_{j=1}^n U_\eps(x_j).$ Then, for $n\neq m$, we have}
+		d(x_n,x_m)&\geq\eps.\end{align*}
+		By (\ref{conv_subseq}), $(x_n)_\nin$ contains a convergent subsequence $(x_{n_k})_{k\in\N}$. 
+		Let $x:=\lim\limits_{k\to\infty}x_{n_k}$. Then $d(x_{n_k},x)<\frac\eps2$ for all $k>k_0$, hence $d(x_{n_k},x_{n_l})<\eps$
+		for all $k,l>k_0$ $\lightning.$
+\end{proof}
+
+\begin{lemma}\label{sub_bounded_compact} Let $(X,d)$ be a metric space, and let $A\sub X$, $A\neq\emptyset$.
+	\begin{enumerate}[(i)]
+	\item\label{subbounded} If $X$ is totally bounded, then also $A$ is totally bounded.
+	\item\label{closbounded} If $A$ is totally bounded, then also $\overline A$ is totally bounded.
+	\end{enumerate}
+\end{lemma}
+\begin{proof}~
+(\ref{subbounded}). Let $\eps>0$. By hypothesis, there exists an $\frac\eps2$-net $\{x_1,\ldots x_n\}$ of $X$.
+			WLOG, let $A\cap U_{\frac\eps2}(x_j)\neq\emptyset$ if and only if $1\leq j\leq m$, $m\leq n$. For each $1\leq j\leq m$, choose
+			$y_j\in A\cap U_\frac\eps2(x_j)$. Let $y\in A$. Then there exists $1\leq j\leq m$ with $y\in U_\frac\eps2(x_j)$, and hence
+			\begin{align*}d(y,y_j)\leq d(y,x_j)+d(x_j,y_j)<\eps.\end{align*}
+			This implies that $\{y_1,\ldots,y_n\}$ is an $\eps-$net for $A$.
+			
+(\ref{closbounded}). Let $\eps>0$. By hypothesis, there exists an $\frac\eps2-$net $\{y_1,\ldots,y_n\}$ for $A$.
+			Let $x\in\overline A$. Then there exists $y\in A$ with $d(x,y)<\frac\eps2$. Let $y_j$ be such that $d(y,y_j)<\frac\eps2$.
+			This yields
+			\begin{align*}d(x,y_j)\leq d(x,y)+d(y,y_j)<\eps,\end{align*}
+			hence $\{y_1,\ldots,y_n\}$ is an $\eps-$net for $\overline A$.
+\end{proof}
+
+\begin{kor}\label{cor_comp_bounded}
+	Let $(X,d)$ be a complete metric space, and let $A\sub X$. Then the following are equivalent.
+	\begin{enumerate}[(i)]
+	\item\label{closcompact} $\overline A$ is compact.
+	\item\label{tbounded} $A$ is totally bounded.
+	\end{enumerate}
+\end{kor}
+\begin{proof}~
+(\ref{closcompact})$\Ra$(\ref{tbounded}). Since $\overline A$ is compact, by \ref{bounded_compact}, $\overline A$ is
+		totally bounded. By Lemma \ref{sub_bounded_compact}, $A$ is totally bounded.
+		
+(\ref{tbounded})$\Ra$(\ref{closcompact}). Since $A$ is totally bounded, by Lemma \ref{sub_bounded_compact},
+		$\overline A$ is totally bounded. Since $X$ is compact, $\overline A$ is also complete. Hence Theorem \ref{bounded_compact}
+		implies that $\overline A$ is compact.
+\end{proof}
+
+\begin{definition}Let $(X,d)$ and $(X',d')$ be metric spaces, and let $f\colon X\to X'$.
+	\begin{enumerate}[(1)]
+	\item $f$ is \emph{continuous} in $x\in X$, if for each $\eps>0$ there exists $\delta >0$ such that 
+		$d(x,y)<\delta\Ra d'(f(x),f(y))<\eps$ for all $y\in X$.
+	\item $f$ is a \emph{homeomorphism}, if $f$ is bijective and $f$ and $f^{-1}$ are both continuous. $f$ is an \emph{isometry}, if
+		$f$ is bijective and $d(x,y)=d(f(x),f(y))$ for all $x,y\in X$.
+	\item $f$ is \emph{uniformly continuous}, if for each $\eps>0$ there exists $\delta>0$ with
+		$d(x,y)<\delta\Ra d'(f(x),f(y))<\eps$ for all $x,y\in X$.
+	\end{enumerate}
+\end{definition}
+
+Two metric spaces being isometric is a strong notion of equivalence for metric spaces, being homeomorphic is the properly weaker topological equivalence of metric spaces.
+
+\begin{lemma} Let $(X,d)$ and $(X',d')$ be metric spaces, and let $f\colon X\to X'$.
+	\begin{enumerate}[(i)]
+	\item $f$ is continous $\eq$ $f^{-1}(U)$ is open in $X$ for all $U\sub X'$ open $\eq$ $f(x_n)\to f(x)$ for all $x_n\to x$ in $X$.
+	\item Let $X$ be compact and $f$ continuous. Then $f$ is automatically uniformly continuous.
+	\end{enumerate}
+	\label{lem:openfuncarecont}
+\end{lemma}
+\begin{proof} Exercises.\end{proof}
+
+We want to relate the relative compactness, that is the compactness of the closure, of a set of continuous real functions to the pointwise relative compactness of these functions. The relatively compact sets in $\R$ are the bounded sets by Heine-Borel theorem. If a set of continuous real functions is relatively compact, we obtain pointwise relative compactness, by continuity of $C(X) \to \R, f \mapsto f(x)$ for every $x\in X$. However, to prove the converse a second condition is needed: the equicontinuity of the functions.
+
+\begin{definition}
+	$F\sub C(X)$ is \emph{equicontinuous in $x\in X$}, if for each $\eps>0$ there exists a neighbourhood $U$ of $x$ with $|f(x)-f(y)|<\eps$
+	for all $y\in U$ and $f\in F$. $F$ is called \emph{equicontinuous}, if it is equicontinuous in each $x\in X$.
+\end{definition}
+
+\begin{theo}[Arzela-Ascoli]\label{arzela-ascoli}
+	Let $X$ be a compact metric space and $F\sub C(X)$. Then the following are equivalent.
+	\begin{enumerate}[(i)] 
+	\item\label{clos_compact} $\overline F$ is compact.
+	\item\label{equicont} $F$ is equicontinuous and pointwise bounded.
+	\end{enumerate}
+\end{theo}
+\begin{proof}
+(\ref{clos_compact})$\Ra$(\ref{equicont}). Exercise.
+
+(\ref{equicont})$\Ra$(\ref{clos_compact}). Let $F$ be equicontinuous and $F(x)\in\K$ bounded for all $x\in X$. Since $C(X)$ is complete, by \ref{cor_comp_bounded} it remains to prove that $F$ is totally bounded. For this, let $\eps>0$, and, for each $x\in X$, let $U_x$ be an open neighbourhood of $x$ with
+\begin{align*}
+|f(y)-f(x)|<\frac\eps2~\text{for all }f\in F\text{ and }y\in U_x.
+\end{align*}
+Let now $x_1,\ldots,x_n\in X$ be chosen such that $X=\bigcup\limits_{i=1}^n U_{x_i}$ and set
+\begin{align*}
+K&:=\bigcup\limits_{i=1}^n f(x_i)\sub\K.
+\intertext{Since $K$ is bounded, there exists $\lambda_1,\ldots,\lambda_n\in\K$ with}
+K&\sub\bigcup\limits_{j=1}^n U_\frac\eps2(\lambda_j).
+\end{align*}
+Define $\Phi$ to be the set of maps $\ph\colon\{1,\ldots,n\}\to\{1,\ldots,m\}$. Also, for $\ph\in\Phi$, set
+\begin{align*}
+F_\ph:=\{f\in F:|f(x_i)-\lambda_{\ph(i)}|<\frac\eps3~\text{for }1\leq i\leq n\}.
+\end{align*}
+Then
+\begin{align*}
+F=\bigcup\limits_{\ph\in\Phi}F_\ph.
+\end{align*}
+To see this, note that for $f\in F$ and each $1\leq i\leq n$, there exists $\ph(i)\in\{1,\ldots,m\}$ with $f(x_i)\in U_\frac\eps6(\lambda_{\ph(i)})$. Hence $f\in F_\ph$. For $f,g\in F_\ph$ and $y\in U_{x_i}$, we then obtain
+\begin{align*}
+|f(y)-g(y)|\leq|f(y)-f(x_i)|+|f(x_i)-\lambda_{\ph(i)}|+|\lambda_{\ph(i)}-g(y)|\leq\eps.
+\end{align*}
+Thus $d(f,g)\leq\eps$ for all $f,g\in F_\ph$, and hence a finite $\eps-$net does exist.
+\end{proof}
+	
